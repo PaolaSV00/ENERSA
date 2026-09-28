@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Control de Planta</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🔒</div>
+            <div>
+                <h2>ENERSA</h2>
+                <span>CONTROL DE PLANTA</span>
+            </div>
+        </div>
+
+        <div class="menu-title">GESTIÓN DE BLOQUEOS</div>
+
+        <nav class="menu">
+
+            <a class="menu-item" href="index.html">
+                <span class="menu-icon">▦</span>
+                <span>Panel general</span>
+            </a>
+
+            <a class="menu-item" href="bandeja-operacion.html">
+                <span class="menu-icon">▣</span>
+                <span>Bandeja de<br>Operación</span>
+                <span class="notification">1</span>
+            </a>
+
+            <a class="menu-item" href="tarjetas-activas.html">
+                <span class="menu-icon">◇</span>
+                <span>Tarjetas activas</span>
+            </a>
+
+            <a class="menu-item" href="historial-bloqueos.html">
+                <span class="menu-icon">◷</span>
+                <span>Historial de bloqueos</span>
+            </a>
+
+            <a class="menu-item" href="solicitudes.html">
+                <span class="menu-icon">⌁</span>
+                <span>Mis solicitudes</span>
+            </a>
+
+            <a class="menu-item active" href="administracion.html">
+                <span class="menu-icon">♙</span>
+                <span>Administración</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">♧</div>
+            <div>
+                <strong>Registro y trazabilidad</strong>
+                <span>de cada intervención</span>
+            </div>
+        </div>
+
+        <div class="user-box">
+            <div class="avatar">I</div>
+            <div>
+                <strong>Ingrid Serrano</strong>
+                <span>Administrador</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div class="breadcrumb">
+                <span>PLANTA</span>
+                <b>›</b>
+                <strong>Administración</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="online">
+                    <span></span>
+                    REGISTRO EN LÍNEA
+                </div>
+
+                <button class="top-icon">♧</button>
+
+                <button class="home-button" onclick="window.location.href='index.html'">
+                    ⌂ <span>Home</span>
+                </button>
+
+            </div>
+
+        </header>
+
+        <section class="content">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">CONFIGURACIÓN / USUARIOS</div>
+                    <h1>Administración</h1>
+                    <p>Gestión de usuarios, roles y permisos del sistema</p>
+                </div>
+
+                <button class="new-request" id="newUser">
+                    <span>+</span> Nuevo usuario
+                </button>
+
+            </div>
+
+            <section class="admin-summary">
+
+                <div class="admin-summary-card">
+                    <span>USUARIOS REGISTRADOS</span>
+                    <strong id="totalUsers">0</strong>
+                </div>
+
+                <div class="admin-summary-card">
+                    <span>USUARIOS ACTIVOS</span>
+                    <strong id="activeUsers">0</strong>
+                </div>
+
+                <div class="admin-summary-card">
+                    <span>ADMINISTRADORES</span>
+                    <strong id="adminUsers">0</strong>
+                </div>
+
+            </section>
+
+            <section class="panel-card">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <div class="section-label">CONTROL DE ACCESOS</div>
+                        <h2>Usuarios del sistema</h2>
+                    </div>
+
+                    <div class="active-badge">
+                        <span id="userTableCount">0</span> usuarios
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table class="blocks-table users-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>USUARIO</th>
+                                <th>CORREO ELECTRÓNICO</th>
+                                <th>ROL</th>
+                                <th>ESTADO</th>
+                                <th>ÚLTIMO ACCESO</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="usersTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="modal" id="userModal">
+
+    <div class="modal-header">
+
+        <div>
+            <span>GESTIÓN DE USUARIO</span>
+            <h2 id="userModalTitle">Usuario</h2>
+        </div>
+
+        <button class="close-modal" id="closeUserModal">×</button>
+
+    </div>
+
+    <div class="modal-body">
+
+        <div class="admin-form">
+
+            <label>
+                NOMBRE DEL USUARIO
+                <input type="text" id="userName">
+            </label>
+
+            <label>
+                CORREO ELECTRÓNICO
+                <input type="email" id="userEmail">
+            </label>
+
+            <label>
+                ROL
+                <select id="userRole">
+                    <option value="Administrador">Administrador</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Operador">Operador</option>
+                    <option value="Ejecutante">Ejecutante</option>
+                </select>
+            </label>
+
+            <label>
+                ESTADO
+                <select id="userStatus">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </label>
+
+            <button class="save-user" id="saveUser">
+                Guardar cambios
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="administracion.js"></script>
+
+</body>
+</html>

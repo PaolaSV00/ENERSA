@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva solicitud - Control de Planta</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🔒</div>
+            <div>
+                <h2>ENERSA</h2>
+                <span>CONTROL DE PLANTA</span>
+            </div>
+        </div>
+
+        <div class="menu-title">GESTIÓN DE BLOQUEOS</div>
+
+        <nav class="menu">
+
+            <a class="menu-item" href="index.html">
+                <span class="menu-icon">▦</span>
+                <span>Panel general</span>
+            </a>
+
+            <a class="menu-item" href="bandeja-operacion.html">
+                <span class="menu-icon">▣</span>
+                <span>Bandeja de<br>Operación</span>
+                <span class="notification">1</span>
+            </a>
+
+            <a class="menu-item" href="tarjetas-activas.html">
+                <span class="menu-icon">◇</span>
+                <span>Tarjetas activas</span>
+            </a>
+
+            <a class="menu-item" href="historial-bloqueos.html">
+                <span class="menu-icon">◷</span>
+                <span>Historial de bloqueos</span>
+            </a>
+
+            <a class="menu-item" href="solicitudes.html">
+                <span class="menu-icon">⌁</span>
+                <span>Mis solicitudes</span>
+            </a>
+
+            <a class="menu-item" href="administracion.html">
+                <span class="menu-icon">♙</span>
+                <span>Administración</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">♧</div>
+            <div>
+                <strong>Registro y trazabilidad</strong>
+                <span>de cada intervención</span>
+            </div>
+        </div>
+
+        <div class="user-box">
+            <div class="avatar">I</div>
+            <div>
+                <strong>Ingrid Serrano</strong>
+                <span>Administrador</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div class="breadcrumb">
+                <span>PLANTA</span>
+                <b>›</b>
+                <strong>Nueva solicitud</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="online">
+                    <span></span>
+                    REGISTRO EN LÍNEA
+                </div>
+
+                <button class="top-icon">♧</button>
+
+                <button class="home-button" onclick="window.location.href='index.html'">
+                    ⌂ <span>Home</span>
+                </button>
+
+            </div>
+
+        </header>
+
+        <section class="content">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                    <h1>Nueva solicitud</h1>
+                    <p>Crear un nuevo borrador de bloqueo de planta</p>
+                </div>
+
+            </div>
+
+            <form class="request-form" id="requestForm">
+
+                <section class="form-card">
+
+                    <div class="form-card-heading">
+                        <div>
+                            <div class="section-label">INFORMACIÓN GENERAL</div>
+                            <h2>Datos de la solicitud</h2>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="equipment">Equipo a bloquear</label>
+                            <input type="text" id="equipment" name="equipment" placeholder="Ingrese el equipo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Área / ubicación</label>
+                            <input type="text" id="location" name="location" placeholder="Ingrese el área o ubicación">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="executor">Ejecutante</label>
+                            <input type="text" id="executor" name="executor" placeholder="Nombre del ejecutante">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supervisor">Supervisor que asignó</label>
+                            <input type="text" id="supervisor" name="supervisor" placeholder="Nombre del supervisor">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="department">Departamento</label>
+                            <input type="text" id="department" name="department" placeholder="Ingrese el departamento">
+                        </div>
+
+                        <div class="form-group full">
+                            <label for="description">Descripción de la actividad</label>
+                            <textarea id="description" name="description" rows="4" placeholder="Describa la actividad que se realizará"></textarea>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section class="form-card">
+
+                    <div class="form-card-heading">
+
+                        <div>
+                            <div class="section-label">AISLAMIENTO</div>
+                            <h2>Tarjetas / puntos de aislamiento</h2>
+                            <p>Agregue las tarjetas necesarias para el bloqueo.</p>
+                        </div>
+
+                    </div>
+
+                    <div id="cardsContainer">
+
+                        <div class="isolation-card">
+
+                            <div class="isolation-header">
+                                <strong>Tarjeta 1</strong>
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <label>Serial</label>
+                                    <input type="text" name="serial[]" placeholder="Ingrese el serial">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Descripción</label>
+                                    <input type="text" name="cardDescription[]" placeholder="Descripción del punto de aislamiento">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button type="button" class="add-card-button" id="addCard">
+                        <span>+</span>
+                        Agregar tarjeta
+                    </button>
+
+                </section>
+
+                <section class="form-card">
+
+                    <div class="form-card-heading">
+
+                        <div>
+                            <div class="section-label">INFORMACIÓN ADICIONAL</div>
+                            <h2>Observaciones</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="observations" name="observations" rows="5" placeholder="Ingrese observaciones adicionales"></textarea>
+                    </div>
+
+                </section>
+
+                <div class="form-actions">
+
+                    <button type="button" class="cancel-button" onclick="window.location.href='index.html'">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="draft-button">
+                        Crear borrador
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="nueva-solicitud.js"></script>
+
+</body>
+</html>

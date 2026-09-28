@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de bloqueos - Control de Planta</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🔒</div>
+            <div>
+                <h2>ENERSA</h2>
+                <span>CONTROL DE PLANTA</span>
+            </div>
+        </div>
+
+        <div class="menu-title">GESTIÓN DE BLOQUEOS</div>
+
+        <nav class="menu">
+
+            <a class="menu-item" href="index.html">
+                <span class="menu-icon">▦</span>
+                <span>Panel general</span>
+            </a>
+
+            <a class="menu-item" href="bandeja-operacion.html">
+                <span class="menu-icon">▣</span>
+                <span>Bandeja de<br>Operación</span>
+                <span class="notification">1</span>
+            </a>
+
+            <a class="menu-item" href="tarjetas-activas.html">
+                <span class="menu-icon">◇</span>
+                <span>Tarjetas activas</span>
+            </a>
+
+            <a class="menu-item active" href="historial-bloqueos.html">
+                <span class="menu-icon">◷</span>
+                <span>Historial de bloqueos</span>
+            </a>
+
+            <a class="menu-item" href="solicitudes.html">
+                <span class="menu-icon">⌁</span>
+                <span>Mis solicitudes</span>
+            </a>
+
+            <a class="menu-item" href="administracion.html">
+                <span class="menu-icon">♙</span>
+                <span>Administración</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">♧</div>
+            <div>
+                <strong>Registro y trazabilidad</strong>
+                <span>de cada intervención</span>
+            </div>
+        </div>
+
+        <div class="user-box">
+            <div class="avatar">I</div>
+            <div>
+                <strong>Ingrid Serrano</strong>
+                <span>Administrador</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div class="breadcrumb">
+                <span>PLANTA</span>
+                <b>›</b>
+                <strong>Historial de bloqueos</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="online">
+                    <span></span>
+                    REGISTRO EN LÍNEA
+                </div>
+
+                <button class="top-icon">♧</button>
+
+                <button class="home-button" onclick="window.location.href='index.html'">
+                    ⌂ <span>Home</span>
+                </button>
+
+            </div>
+
+        </header>
+
+        <section class="content">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                    <h1>Historial de bloqueos</h1>
+                    <p>Consulta y trazabilidad de todas las solicitudes de bloqueo</p>
+                </div>
+
+                <button class="new-request" onclick="window.location.href='nueva-solicitud.html'">
+                    <span>+</span> Nueva solicitud
+                </button>
+
+            </div>
+
+            <section class="history-filters">
+
+                <div class="history-search">
+
+                    <label for="historySearch">BUSCAR BLOQUEO</label>
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input
+                            type="text"
+                            id="historySearch"
+                            placeholder="ID, equipo, serial, ejecutante, supervisor u operador"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="filter-group">
+
+                    <label for="statusFilter">ESTADO</label>
+
+                    <select id="statusFilter">
+                        <option value="">Todos los estados</option>
+                        <option value="Borrador">Borrador</option>
+                        <option value="Pendiente de aprobación">Pendiente de aprobación</option>
+                        <option value="Bloqueo activo">Bloqueo activo</option>
+                        <option value="Pendiente de cierre">Pendiente de cierre</option>
+                        <option value="Terminado">Terminado</option>
+                    </select>
+
+                </div>
+
+                <div class="filter-group">
+
+                    <label for="dateFrom">FECHA DESDE</label>
+
+                    <input type="date" id="dateFrom">
+
+                </div>
+
+                <div class="filter-group">
+
+                    <label for="dateTo">FECHA HASTA</label>
+
+                    <input type="date" id="dateTo">
+
+                </div>
+
+                <button class="clear-filters" id="clearFilters">
+                    Limpiar filtros
+                </button>
+
+            </section>
+
+            <section class="panel-card">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <div class="section-label">REGISTRO </div>
+                        <h2>Historial de bloqueos</h2>
+                    </div>
+
+                    <div class="active-badge">
+                        <span id="historyCount">0</span> registros
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table class="blocks-table history-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>EQUIPO / ACTIVIDAD</th>
+                                <th>SERIAL</th>
+                                <th>EJECUTANTE</th>
+                                <th>SUPERVISOR</th>
+                                <th>OPERADOR</th>
+                                <th>FECHA / HORA</th>
+                                <th>ESTADO</th>
+                                <th>TIEMPO BLOQUEADO</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="historyTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="modal" id="detailModal">
+
+    <div class="modal-header">
+
+        <div>
+            <span>DETALLE DEL BLOQUEO</span>
+            <h2 id="modalTitle">Bloqueo</h2>
+        </div>
+
+        <button class="close-modal" id="closeModal">×</button>
+
+    </div>
+
+    <div class="modal-body" id="modalBody"></div>
+
+</div>
+
+<script src="historial.js"></script>
+
+</body>
+</html>

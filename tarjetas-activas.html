@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas activas - Control de Planta</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🔒</div>
+            <div>
+                <h2>ENERSA</h2>
+                <span>CONTROL DE PLANTA</span>
+            </div>
+        </div>
+
+        <div class="menu-title">GESTIÓN DE BLOQUEOS</div>
+
+        <nav class="menu">
+
+            <a class="menu-item" href="index.html">
+                <span class="menu-icon">▦</span>
+                <span>Panel general</span>
+            </a>
+
+            <a class="menu-item" href="bandeja-operacion.html">
+                <span class="menu-icon">▣</span>
+                <span>Bandeja de<br>Operación</span>
+                <span class="notification">1</span>
+            </a>
+
+            <a class="menu-item active" href="tarjetas-activas.html">
+                <span class="menu-icon">◇</span>
+                <span>Tarjetas activas</span>
+            </a>
+
+            <a class="menu-item" href="historial-bloqueos.html">
+                <span class="menu-icon">◷</span>
+                <span>Historial de bloqueos</span>
+            </a>
+
+            <a class="menu-item" href="solicitudes.html">
+                <span class="menu-icon">⌁</span>
+                <span>Mis solicitudes</span>
+            </a>
+
+            <a class="menu-item " href="administracion.html">
+                <span class="menu-icon">♙</span>
+                <span>Administración</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">♧</div>
+            <div>
+                <strong>Registro y trazabilidad</strong>
+                <span>de cada intervención</span>
+            </div>
+        </div>
+
+        <div class="user-box">
+            <div class="avatar">I</div>
+            <div>
+                <strong>Ingrid Serrano</strong>
+                <span>Administrador</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div class="breadcrumb">
+                <span>PLANTA</span>
+                <b>›</b>
+                <strong>Tarjetas activas</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="online">
+                    <span></span>
+                    REGISTRO EN LÍNEA
+                </div>
+
+                <button class="top-icon">♧</button>
+
+                <button class="home-button" onclick="window.location.href='index.html'">
+                    ⌂ <span>Home</span>
+                </button>
+
+            </div>
+
+        </header>
+
+        <section class="content">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                    <h1>Tarjetas activas</h1>
+                    <p>Consulta de tarjetas de bloqueo actualmente activas</p>
+                </div>
+
+                <button class="new-request" onclick="window.location.href='nueva-solicitud.html'">
+                    <span>+</span> Nueva solicitud
+                </button>
+
+            </div>
+
+            <section class="cards-search-panel">
+
+                <div class="cards-search">
+
+                    <label for="cardSearch">BUSCAR TARJETA</label>
+
+                    <div class="cards-search-box">
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="cardSearch"
+                            placeholder="Buscar por serial, descripción o equipo"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="cards-total">
+                    <span id="cardCount">0</span>
+                    <small>tarjetas activas</small>
+                </div>
+
+            </section>
+
+            <section class="panel-card">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <div class="section-label">CONTROL DE TARJETAS</div>
+                        <h2>Tarjetas de bloqueo activas</h2>
+                    </div>
+
+                    <div class="active-badge">
+                        <span id="tableCardCount">0</span> activas
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table class="blocks-table active-cards-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>SERIAL</th>
+                                <th>EQUIPO</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>ID BLOQUEO</th>
+                                <th>INSTALACIÓN</th>
+                                <th>EJECUTANTE</th>
+                                <th>DEPARTAMENTO</th>
+                                <th>ESTADO</th>
+                                <th>TIEMPO ACTIVO</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="cardsTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="modal" id="detailModal">
+
+    <div class="modal-header">
+
+        <div>
+            <span>DETALLE DE TARJETA</span>
+            <h2 id="modalTitle">Tarjeta</h2>
+        </div>
+
+        <button class="close-modal" id="closeModal">×</button>
+
+    </div>
+
+    <div class="modal-body" id="modalBody"></div>
+
+</div>
+
+<script src="script-tarjetas.js"></script>
+
+</body>
+</html>
