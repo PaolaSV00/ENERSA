@@ -11,7 +11,7 @@ const usersData = [
         id: 2,
         name: "Allan Medina",
         email: "allan@enersa.com",
-        role: "Ejecutante",
+        role: "",
         status: "Activo",
         lastAccess: "28/09/2026 07:52"
     },
@@ -19,7 +19,7 @@ const usersData = [
         id: 3,
         name: "Carlos Hernández",
         email: "carlos@enersa.com",
-        role: "Supervisor",
+        role: "",
         status: "Activo",
         lastAccess: "27/09/2026 16:30"
     },
@@ -27,7 +27,7 @@ const usersData = [
         id: 4,
         name: "Victor Molina",
         email: "victor@enersa.com",
-        role: "Operador",
+        role: "",
         status: "Activo",
         lastAccess: "28/09/2026 07:40"
     },
@@ -35,7 +35,7 @@ const usersData = [
         id: 5,
         name: "Luis Ortiz",
         email: "luis@enersa.com",
-        role: "Ejecutante",
+        role: "",
         status: "Inactivo",
         lastAccess: "25/09/2026 14:20"
     }
