@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Bloqueos de Planta</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <header class="barra-principal">
+        <div class="marca">
+            <div class="logo">🔒</div>
+            <span>ENERSA</span>
+        </div>
+
+        <nav class="menu-principal">
+            <button class="menu-item activo" onclick="mostrarSeccion('panel')">
+                <span>▦</span>
+                <span>Panel general</span>
+            </button>
+
+            <button class="menu-item" onclick="mostrarSeccion('bandeja')">
+                <span>▣</span>
+                <span>Bandeja de Operación</span>
+                <span class="contador">1</span>
+            </button>
+
+            <button class="menu-item" onclick="mostrarSeccion('tarjetas')">
+                <span>◇</span>
+                <span>Tarjetas activas</span>
+            </button>
+
+            <button class="menu-item" onclick="mostrarSeccion('historial')">
+                <span>◷</span>
+                <span>Historial de bloqueos</span>
+            </button>
+
+            <button class="menu-item" onclick="mostrarSeccion('solicitudes')">
+                <span>〽</span>
+                <span>Mis solicitudes</span>
+            </button>
+
+            <button class="menu-item" onclick="mostrarSeccion('administracion')">
+                <span>♙</span>
+                <span>Administración</span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="barra-secundaria">
+        <strong id="titulo-seccion">Panel general</strong>
+
+        <div class="acciones-superiores">
+            <button class="icono-btn">♧</button>
+            <button class="home-btn" onclick="mostrarSeccion('panel')">
+                <span>⌂</span>
+                Home
+            </button>
+        </div>
+    </div>
+
+    <main>
+
+        <section id="panel" class="seccion activa">
+
+            <div class="encabezado">
+                <div class="etiqueta">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                <h1>Control de Bloqueos de Planta</h1>
+                <p>Gestión y trazabilidad de bloqueos activos</p>
+
+                <button class="boton-principal" onclick="nuevaSolicitud()">
+                    <span>＋</span>
+                    Nueva solicitud
+                </button>
+            </div>
+
+            <div class="tarjetas-resumen">
+
+                <div class="tarjeta-resumen">
+                    <div>
+                        <span class="titulo-tarjeta">BLOQUEOS<br>ACTIVOS</span>
+                        <strong>05</strong>
+                        <p>Equipos aislados en planta</p>
+                    </div>
+                    <div class="icono-tarjeta amarillo">♙</div>
+                </div>
+
+                <div class="tarjeta-resumen">
+                    <div>
+                        <span class="titulo-tarjeta">PENDIENTES DE<br>APROBACIÓN</span>
+                        <strong>00</strong>
+                        <p>Solicitudes por validar</p>
+                    </div>
+                    <div class="icono-tarjeta azul">▣</div>
+                </div>
+
+                <div class="tarjeta-resumen">
+                    <div>
+                        <span class="titulo-tarjeta">PENDIENTES DE<br>CIERRE</span>
+                        <strong>01</strong>
+                        <p>Aún físicamente bloqueados</p>
+                    </div>
+                    <div class="icono-tarjeta morado">◷</div>
+                </div>
+
+                <div class="tarjeta-resumen">
+                    <div>
+                        <span class="titulo-tarjeta">TERMINADOS HOY</span>
+                        <strong>00</strong>
+                        <p>Cierres registrados</p>
+                    </div>
+                    <div class="icono-tarjeta verde">✓</div>
+                </div>
+
+            </div>
+
+            <div class="bloque-contenido">
+
+                <div class="titulo-bloque">
+                    <div>
+                        <span>ESTADO ACTUAL</span>
+                        <h2>Bloqueos activos en planta</h2>
+                    </div>
+
+                    <div class="cantidad">5 activos</div>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>EQUIPO / ACTIVIDAD</th>
+                                <th>EJECUTANTE</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tabla-bloqueos">
+                            <tr>
+                                <td><strong>BLQ-2026-0008</strong></td>
+                                <td>
+                                    <strong>Motor P001</strong>
+                                    <small>Se va a realizar mantenimiento</small>
+                                </td>
+                                <td>Allan Medina</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>BLQ-2026-0007</strong></td>
+                                <td>
+                                    <strong>Panel ESSER</strong>
+                                    <small>Prueba realizada del SICI</small>
+                                </td>
+                                <td>Técnico eléctrico</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>BLQ-2026-0006</strong></td>
+                                <td>
+                                    <strong>Veolia</strong>
+                                    <small>Visita II a mantenimiento</small>
+                                </td>
+                                <td>Luis Ortiz</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>BLQ-2026-0005</strong></td>
+                                <td>
+                                    <strong>Bomba P005</strong>
+                                    <small>Visita 2 a la bomba</small>
+                                </td>
+                                <td>Victor Molina</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>BLQ-2026-0004</strong></td>
+                                <td>
+                                    <strong>Compresor #1</strong>
+                                    <small>Matto mayor</small>
+                                </td>
+                                <td>Juan Perez</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="bloque-espera">
+                <div>
+                    <h3>En espera de Operación</h3>
+                    <p>0 por aprobar · 1 por cerrar</p>
+                </div>
+
+                <button onclick="mostrarSeccion('bandeja')">
+                    Abrir bandeja
+                    <span>›</span>
+                </button>
+            </div>
+
+        </section>
+
+        <section id="bandeja" class="seccion">
+            <div class="encabezado">
+                <div class="etiqueta">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                <h1>Control de Bloqueos de Planta</h1>
+                <p>Gestión y trazabilidad de bloqueos activos</p>
+                <button class="boton-principal" onclick="nuevaSolicitud()">
+                    <span>＋</span>
+                    Nueva solicitud
+                </button>
+            </div>
+
+            <h2>Bandeja de Operación</h2>
+            <p class="descripcion">Solicitudes que requieren validación presencial y registro de responsabilidad.</p>
+
+            <div class="tarjeta-lista">
+                <div class="cabecera-lista">
+                    <h3>Pendientes de aprobación</h3>
+                    <span>0</span>
+                </div>
+                <div class="estado-vacio">
+                    No hay solicitudes pendientes.
+                </div>
+            </div>
+
+            <div class="tarjeta-lista">
+                <div class="cabecera-lista">
+                    <h3>Pendientes de cierre</h3>
+                    <span>1</span>
+                </div>
+
+                <div class="elemento-lista">
+                    <div>
+                        <strong>BLQ-2026-0007</strong>
+                        <p>Panel ESSER · Prueba realizada del SICI</p>
+                        <small>Noel Mendez · 25/09/26, 08:38</small>
+                    </div>
+                    <span>›</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="tarjetas" class="seccion">
+            <div class="encabezado">
+                <div class="etiqueta">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                <h1>Control de Bloqueos de Planta</h1>
+                <p>Gestión y trazabilidad de bloqueos activos</p>
+                <button class="boton-principal" onclick="nuevaSolicitud()">
+                    <span>＋</span>
+                    Nueva solicitud
+                </button>
+            </div>
+
+            <h2>Tarjetas activas en planta</h2>
+            <p class="descripcion">Seriales instalados en bloqueos activos y pendientes de cierre.</p>
+
+            <div class="buscador">
+                <span>⌕</span>
+                <input type="text" id="buscarTarjeta" placeholder="Buscar serial, descripción o equipo" oninput="filtrarTarjetas()">
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SERIAL</th>
+                            <th>EQUIPO</th>
+                            <th>DESCRIPCIÓN</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabla-tarjetas">
+                        <tr><td><strong>5848</strong></td><td>Compresor #1</td><td>Válvula de entrada</td></tr>
+                        <tr><td><strong>5849</strong></td><td>Compresor #1</td><td>Válvula de salida</td></tr>
+                        <tr><td><strong>5850</strong></td><td>Compresor #1</td><td>Motor eléctrico</td></tr>
+                        <tr><td><strong>4567</strong></td><td>Bomba P005</td><td>Válvula entrada</td></tr>
+                        <tr><td><strong>4568</strong></td><td>Bomba P005</td><td>Válvula de salida</td></tr>
+                        <tr><td><strong>4569</strong></td><td>Bomba P005</td><td>Motor eléctrico</td></tr>
+                        <tr><td><strong>2545</strong></td><td>Veolia</td><td>Válvula de entrada</td></tr>
+                        <tr><td><strong>2546</strong></td><td>Veolia</td><td>Válvula de salida</td></tr>
+                        <tr><td><strong>2547</strong></td><td>Veolia</td><td>Motor eléctrico</td></tr>
+                        <tr><td><strong>1234</strong></td><td>Panel ESSER</td><td>Panel ESSER</td></tr>
+                        <tr><td><strong>0001</strong></td><td>Motor P001</td><td>Válvula entrada</td></tr>
+                        <tr><td><strong>0002</strong></td><td>Motor P001</td><td>Válvula salida</td></tr>
+                        <tr><td><strong>0003</strong></td><td>Motor P001</td><td>Breaker motor</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="historial" class="seccion">
+            <div class="encabezado">
+                <div class="etiqueta">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                <h1>Control de Bloqueos de Planta</h1>
+                <p>Gestión y trazabilidad de bloqueos activos</p>
+                <button class="boton-principal" onclick="nuevaSolicitud()">
+                    <span>＋</span>
+                    Nueva solicitud
+                </button>
+            </div>
+
+            <h2>Historial de bloqueos</h2>
+            <p class="descripcion">Busque por ID, equipo, serial de tarjeta o personas involucradas.</p>
+
+            <div class="buscador">
+                <span>⌕</span>
+                <input type="text" placeholder="ID, equipo, serial, solicitante, ejecutante">
+            </div>
+
+            <select class="filtro">
+                <option>Todos los estados</option>
+                <option>Borrador</option>
+                <option>Pendiente de aprobación</option>
+                <option>Bloqueo activo</option>
+                <option>Pendiente de cierre</option>
+                <option>Terminado</option>
+            </select>
+
+            <div class="fechas">
+                <input type="date">
+                <input type="date">
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>EQUIPO / ACTIVIDAD</th>
+                            <th>ESTADO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>BLQ-2026-0004</strong></td><td>Compresor #1</td><td><span class="estado activo">Bloqueo activo</span></td></tr>
+                        <tr><td><strong>BLQ-2026-0003</strong></td><td>CF001</td><td><span class="estado activo">Bloqueo activo</span></td></tr>
+                        <tr><td><strong>BLQ-2026-0002</strong></td><td>P025</td><td><span class="estado cierre">Pendiente de cierre</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="solicitudes" class="seccion">
+            <div class="encabezado">
+                <div class="etiqueta">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                <h1>Control de Bloqueos de Planta</h1>
+                <p>Gestión y trazabilidad de bloqueos activos</p>
+                <button class="boton-principal" onclick="nuevaSolicitud()">
+                    <span>＋</span>
+                    Nueva solicitud
+                </button>
+            </div>
+
+            <h2>Mis solicitudes</h2>
+            <p class="descripcion">Borradores, solicitudes enviadas y actividades asignadas a su cuenta.</p>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>EQUIPO / ACTIVIDAD</th>
+                            <th>EJECUTANTE</th>
+                            <th>DEPARTAMENTO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4" class="sin-datos">Todavía no ha registrado solicitudes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="administracion" class="seccion">
+            <div class="encabezado">
+                <div class="etiqueta">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                <h1>Control de Bloqueos de Planta</h1>
+                <p>Gestión y trazabilidad de bloqueos activos</p>
+                <button class="boton-principal" onclick="nuevaSolicitud()">
+                    <span>＋</span>
+                    Nueva solicitud
+                </button>
+            </div>
+
+            <h2>Administración de roles</h2>
+            <p class="descripcion">Los usuarios aparecen después de ingresar al Site por primera vez. El acceso al Site se gestiona por separado.</p>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>USUARIO</th>
+                            <th>CORREO</th>
+                            <th>ROL</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Edgardo Ramirez</td>
+                            <td>eramirez574@gmail.com</td>
+                            <td>
+                                <select>
+                                    <option>Administrador</option>
+                                    <option>Solicitante</option>
+                                    <option>Operación</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Fernando M</td>
+                            <td>lfmb14@gmail.com</td>
+                            <td>
+                                <select>
+                                    <option>Solicitante</option>
+                                    <option>Operación</option>
+                                    <option>Administrador</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Luis Madrid</td>
+                            <td>lmadrid@enersa-energia.com</td>
+                            <td>
+                                <select>
+                                    <option>Solicitante</option>
+                                    <option>Operación</option>
+                                    <option>Administrador</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="mensaje" class="mensaje">
+        El formulario de Nueva solicitud lo construiremos en la siguiente fase.
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
