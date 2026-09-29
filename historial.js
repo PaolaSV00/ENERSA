@@ -1,255 +1,149 @@
-const currentUserRole = "Administrador";
-
-const blocksData = [
+const historyData = [
     {
         id: "BLQ-2026-0008",
         equipment: "Motor P001",
         activity: "Se va a realizar mantenimiento",
+        serial: "MTR-P001-001",
         executor: "Allan Medina",
-        department: "Eléctrico",
         supervisor: "Cristobal Silva",
-        requester: "Luis Madrid",
-        area: "Sala de máquinas",
-        date: "25/09/2026",
-        time: "14:41",
-        cards: [
-            {
-                serial: "0001",
-                description: "Válvula entrada",
-                status: "Instalada"
-            },
-            {
-                serial: "0002",
-                description: "Válvula salida",
-                status: "Instalada"
-            },
-            {
-                serial: "0003",
-                description: "Breaker motor",
-                status: "Instalada"
-            }
-        ],
+        operator: "Carlos Flores",
+        department: "Eléctrico",
+        date: "2026-09-25",
+        time: "14:43",
         status: "Bloqueo activo",
-        blockedTime: "90 h 32 min",
-        timeline: [
-            {
-                title: "Borrador creado",
-                date: "25/09/2026, 14:40",
-                user: "Luis Madrid",
-                email: "lmadrid@enersa-energia.com",
-                description: "Borrador · Supervisor: Cristobal Silva"
-            },
-            {
-                title: "Solicitud enviada",
-                date: "25/09/2026, 14:41",
-                user: "Luis Madrid",
-                email: "lmadrid@enersa-energia.com",
-                description: "Pendiente de aprobación · Supervisor: Cristobal Silva"
-            },
-            {
-                title: "Bloqueo activo",
-                date: "25/09/2026, 15:05",
-                user: "Cristobal Silva",
-                email: "cristobal@enersa-energia.com",
-                description: "Bloqueo realizado y tarjetas instaladas"
-            }
-        ]
+        blockedTime: "56 h 13 min"
     },
     {
         id: "BLQ-2026-0007",
         equipment: "Panel ESSER",
         activity: "Prueba realizada del SCI",
+        serial: "ESSER-0025",
         executor: "Técnico eléctrico",
+        supervisor: "Noel Méndez",
+        operator: "Carlos Flores",
         department: "Ambiente",
-        supervisor: "Cristobal Silva",
-        requester: "Luis Madrid",
-        area: "Sistema contra incendios",
-        date: "25/09/2026",
-        time: "13:20",
-        cards: [
-            {
-                serial: "0004",
-                description: "Panel principal",
-                status: "Instalada"
-            }
-        ],
+        date: "2026-09-25",
+        time: "08:39",
         status: "Pendiente de cierre",
-        blockedTime: "91 h 12 min",
-        timeline: [
-            {
-                title: "Borrador creado",
-                date: "25/09/2026, 13:10",
-                user: "Luis Madrid",
-                email: "lmadrid@enersa-energia.com",
-                description: "Borrador creado"
-            },
-            {
-                title: "Solicitud enviada",
-                date: "25/09/2026, 13:20",
-                user: "Luis Madrid",
-                email: "lmadrid@enersa-energia.com",
-                description: "Solicitud enviada"
-            },
-            {
-                title: "Bloqueo activo",
-                date: "25/09/2026, 13:40",
-                user: "Cristobal Silva",
-                email: "cristobal@enersa-energia.com",
-                description: "Bloqueo realizado"
-            },
-            {
-                title: "Pendiente de cierre",
-                date: "29/09/2026, 08:20",
-                user: "Operación",
-                email: "operacion@enersa-energia.com",
-                description: "Se notificó el cierre del bloqueo"
-            }
-        ]
+        blockedTime: "62 h 17 min"
     },
     {
         id: "BLQ-2026-0006",
         equipment: "Veolia",
         activity: "Visita al transformador",
+        serial: "VEO-TR-006",
         executor: "Luis Ortiz",
+        supervisor: "Mario Calderín",
+        operator: "José Martínez",
         department: "Mecánico",
-        supervisor: "Cristobal Silva",
-        requester: "Luis Madrid",
-        area: "Transformador principal",
-        date: "25/09/2026",
-        time: "12:50",
-        cards: [
-            {
-                serial: "0005",
-                description: "Transformador principal",
-                status: "Instalada"
-            }
-        ],
+        date: "2026-09-25",
+        time: "08:37",
         status: "Bloqueo activo",
-        blockedTime: "92 h 10 min",
-        timeline: [
-            {
-                title: "Solicitud enviada",
-                date: "25/09/2026, 12:50",
-                user: "Luis Madrid",
-                email: "lmadrid@enersa-energia.com",
-                description: "Solicitud enviada"
-            },
-            {
-                title: "Bloqueo activo",
-                date: "25/09/2026, 13:15",
-                user: "Cristobal Silva",
-                email: "cristobal@enersa-energia.com",
-                description: "Bloqueo realizado"
-            }
-        ]
+        blockedTime: "62 h 19 min"
     },
     {
         id: "BLQ-2026-0005",
         equipment: "Bomba P005",
         activity: "Visita a la bomba",
+        serial: "BOM-P005-005",
         executor: "Victor Molina",
+        supervisor: "Julian Alvarez",
+        operator: "Carlos Flores",
         department: "Mecánico",
-        supervisor: "Cristobal Silva",
-        requester: "Luis Madrid",
-        area: "Área de bombeo",
-        date: "25/09/2026",
-        time: "12:30",
-        cards: [
-            {
-                serial: "0006",
-                description: "Bomba P005 entrada",
-                status: "Instalada"
-            },
-            {
-                serial: "0007",
-                description: "Bomba P005 salida",
-                status: "Instalada"
-            }
-        ],
-        status: "Bloqueo activo",
-        blockedTime: "92 h 30 min",
-        timeline: [
-            {
-                title: "Solicitud enviada",
-                date: "25/09/2026, 12:30",
-                user: "Luis Madrid",
-                email: "lmadrid@enersa-energia.com",
-                description: "Solicitud enviada"
-            },
-            {
-                title: "Bloqueo activo",
-                date: "25/09/2026, 12:55",
-                user: "Cristobal Silva",
-                email: "cristobal@enersa-energia.com",
-                description: "Bloqueo realizado"
-            }
-        ]
+        date: "2026-09-25",
+        time: "08:38",
+        status: "Terminado",
+        blockedTime: "62 h 18 min"
     },
     {
         id: "BLQ-2026-0004",
         equipment: "Compresor #1",
         activity: "Mantenimiento mayor",
+        serial: "CMP-001-004",
         executor: "Juan Perez",
+        supervisor: "Jordan Rivera",
+        operator: "José Martínez",
         department: "Mecánico",
-        supervisor: "Cristobal Silva",
-        requester: "Luis Madrid",
-        area: "Sala de compresores",
-        date: "25/09/2026",
-        time: "12:10",
-        cards: [
-            {
-                serial: "0008",
-                description: "Breaker compresor",
-                status: "Instalada"
-            },
-            {
-                serial: "0009",
-                description: "Válvula principal",
-                status: "Instalada"
-            },
-            {
-                serial: "0010",
-                description: "Alimentación eléctrica",
-                status: "Instalada"
-            }
-        ],
+        date: "2026-09-25",
+        time: "08:38",
         status: "Bloqueo activo",
-        blockedTime: "92 h 50 min",
-        timeline: [
-            {
-                title: "Solicitud enviada",
-                date: "25/09/2026, 12:10",
-                user: "Luis Madrid",
-                email: "lmadrid@enersa-energia.com",
-                description: "Solicitud enviada"
-            },
-            {
-                title: "Bloqueo activo",
-                date: "25/09/2026, 12:40",
-                user: "Cristobal Silva",
-                email: "cristobal@enersa-energia.com",
-                description: "Bloqueo realizado"
-            }
-        ]
+        blockedTime: "62 h 18 min"
+    },
+    {
+        id: "BLQ-2026-0003",
+        equipment: "Transformador T002",
+        activity: "Inspección general",
+        serial: "TRF-T002-003",
+        executor: "Pedro López",
+        supervisor: "Mario Calderín",
+        operator: "Carlos Flores",
+        department: "Eléctrico",
+        date: "2026-09-24",
+        time: "11:20",
+        status: "Terminado",
+        blockedTime: "18 h 42 min"
+    },
+    {
+        id: "BLQ-2026-0002",
+        equipment: "Bomba P002",
+        activity: "Revisión preventiva",
+        serial: "BOM-P002-002",
+        executor: "Miguel Torres",
+        supervisor: "Julian Alvarez",
+        operator: "",
+        department: "Mecánico",
+        date: "2026-09-23",
+        time: "15:10",
+        status: "Pendiente de aprobación",
+        blockedTime: "00 h 00 min"
+    },
+    {
+        id: "BLQ-2026-0001",
+        equipment: "Motor P003",
+        activity: "Mantenimiento programado",
+        serial: "MTR-P003-001",
+        executor: "Andrés Rivera",
+        supervisor: "Cristobal Silva",
+        operator: "",
+        department: "Eléctrico",
+        date: "2026-09-23",
+        time: "09:15",
+        status: "Borrador",
+        blockedTime: "00 h 00 min"
     }
 ];
 
-const blocksTable = document.getElementById("blocksTable");
-const activeCount = document.getElementById("activeCount");
-const approvalCount = document.getElementById("approvalCount");
-const closeCount = document.getElementById("closeCount");
-const finishedCount = document.getElementById("finishedCount");
-const tableCount = document.getElementById("tableCount");
-const waitingApproval = document.getElementById("waitingApproval");
-const waitingClose = document.getElementById("waitingClose");
+const historyTable = document.getElementById("historyTable");
+const historySearch = document.getElementById("historySearch");
+const statusFilter = document.getElementById("statusFilter");
+const dateFrom = document.getElementById("dateFrom");
+const dateTo = document.getElementById("dateTo");
+const historyCount = document.getElementById("historyCount");
 
-function renderBlocks() {
+function getStatusClass(status) {
 
-    const activeBlocks = blocksData.filter(
-        block => block.status === "Bloqueo activo"
-    );
+    if (status === "Bloqueo activo") {
+        return "active";
+    }
 
-    blocksTable.innerHTML = activeBlocks.map(block => `
+    if (status === "Pendiente de cierre") {
+        return "pending";
+    }
+
+    if (status === "Pendiente de aprobación") {
+        return "approval";
+    }
+
+    if (status === "Terminado") {
+        return "finished";
+    }
+
+    return "draft";
+}
+
+function renderHistory(data) {
+
+    historyTable.innerHTML = data.map(block => `
 
         <tr>
 
@@ -260,25 +154,20 @@ function renderBlocks() {
                 <span>${block.activity}</span>
             </td>
 
-            <td>${block.executor}</td>
+            <td>${block.serial}</td>
 
-            <td>${block.department}</td>
+            <td>${block.executor}</td>
 
             <td>${block.supervisor}</td>
 
-            <td>
-                ${block.date}<br>
-                <span class="table-time">${block.time}</span>
+            <td>${block.operator || "—"}</td>
+
+            <td class="time-cell">
+                ${formatDate(block.date)}, ${block.time}
             </td>
 
             <td>
-                <span class="table-count">
-                    ${block.cards.length}
-                </span>
-            </td>
-
-            <td>
-                <span class="status active">
+                <span class="status ${getStatusClass(block.status)}">
                     ${block.status}
                 </span>
             </td>
@@ -288,10 +177,7 @@ function renderBlocks() {
             </td>
 
             <td>
-                <button
-                    class="detail-button"
-                    onclick="openBlockDetail('${block.id}')"
-                >
+                <button class="detail-button" onclick="openHistoryDetail('${block.id}')">
                     ›
                 </button>
             </td>
@@ -300,443 +186,153 @@ function renderBlocks() {
 
     `).join("");
 
-    updateCounters();
+    historyCount.textContent = data.length;
 }
 
-function updateCounters() {
+function formatDate(date) {
 
-    const active = blocksData.filter(
-        block => block.status === "Bloqueo activo"
-    ).length;
+    const parts = date.split("-");
 
-    const approval = blocksData.filter(
-        block => block.status === "Pendiente de aprobación"
-    ).length;
-
-    const pendingClose = blocksData.filter(
-        block => block.status === "Pendiente de cierre"
-    ).length;
-
-    const finished = blocksData.filter(
-        block => block.status === "Terminado"
-    ).length;
-
-    activeCount.textContent = String(active).padStart(2, "0");
-    approvalCount.textContent = String(approval).padStart(2, "0");
-    closeCount.textContent = String(pendingClose).padStart(2, "0");
-    finishedCount.textContent = String(finished).padStart(2, "0");
-
-    tableCount.textContent = active;
-    waitingApproval.textContent = approval;
-    waitingClose.textContent = pendingClose;
+    return `${parts[2]}/${parts[1]}/${parts[0].slice(2)}`;
 }
 
-function renderCards(cards) {
+function filterHistory() {
 
-    return cards.map(card => `
+    const search = historySearch.value.toLowerCase().trim();
+    const status = statusFilter.value;
+    const from = dateFrom.value;
+    const to = dateTo.value;
 
-        <div class="detail-card-row">
+    const filtered = historyData.filter(block => {
 
-            <span class="detail-card-serial">
-                ${card.serial}
-            </span>
+        const searchableText = `
+            ${block.id}
+            ${block.equipment}
+            ${block.activity}
+            ${block.serial}
+            ${block.executor}
+            ${block.supervisor}
+            ${block.operator}
+        `.toLowerCase();
 
-            <strong>
-                ${card.description}
-            </strong>
+        const matchesSearch =
+            !search || searchableText.includes(search);
 
-            <span class="detail-card-status">
-                ${card.status}
-            </span>
+        const matchesStatus =
+            !status || block.status === status;
 
-        </div>
+        const matchesFrom =
+            !from || block.date >= from;
 
-    `).join("");
+        const matchesTo =
+            !to || block.date <= to;
+
+        return matchesSearch &&
+               matchesStatus &&
+               matchesFrom &&
+               matchesTo;
+    });
+
+    renderHistory(filtered);
 }
 
-function renderTimeline(timeline) {
+function openHistoryDetail(id) {
 
-    return timeline.map(item => `
+    const block = historyData.find(item => item.id === id);
 
-        <div class="audit-item">
+    if (!block) return;
 
-            <div class="audit-point"></div>
-
-            <div class="audit-content">
-
-                <strong>${item.title}</strong>
-
-                <span>
-                    ${item.date} · ${item.user}
-                    (${item.email})
-                </span>
-
-                <p>${item.description}</p>
-
-                <details>
-                    <summary>Campos registrados</summary>
-
-                    <div class="registered-fields">
-
-                        <div>
-                            <span>Equipo</span>
-                            <strong>${blocksData.find(block => block.id === item.blockId)?.equipment || ""}</strong>
-                        </div>
-
-                        <div>
-                            <span>Estado</span>
-                            <strong>${item.title}</strong>
-                        </div>
-
-                    </div>
-
-                </details>
-
-            </div>
-
-        </div>
-
-    `).join("");
-}
-
-function renderClosureValidation(block) {
-
-    if (block.status !== "Pendiente de cierre") {
-        return "";
-    }
-
-    if (
-        currentUserRole !== "Administrador" &&
-        currentUserRole !== "Operador"
-    ) {
-        return `
-
-            <section class="closure-readonly">
-
-                <div class="closure-readonly-icon">🔒</div>
-
-                <div>
-
-                    <strong>
-                        Validación final de Operación
-                    </strong>
-
-                    <p>
-                        Esta sección está disponible únicamente
-                        para los usuarios autorizados de Operación.
-                    </p>
-
-                </div>
-
-            </section>
-
-        `;
-    }
-
-    return `
-
-        <section class="closure-validation">
-
-            <div class="closure-title">
-
-                <span>VALIDACIÓN FINAL DE OPERACIÓN</span>
-
-                <h3>
-                    Validación final de Operación
-                </h3>
-
-                <p>
-                    Compare todos los seriales de la lista anterior
-                    con las tarjetas físicas antes de continuar.
-                </p>
-
-            </div>
-
-            <div class="closure-form">
-
-                <label>
-                    Operador de turno notificado del cierre
-
-                    <input
-                        type="text"
-                        id="closureOperator"
-                        placeholder="Ingrese el nombre del operador"
-                    >
-
-                </label>
-
-                <label>
-                    Supervisor de turno
-
-                    <input
-                        type="text"
-                        id="closureSupervisor"
-                        placeholder="Ingrese el nombre del supervisor"
-                    >
-
-                </label>
-
-                <div class="closure-date">
-                    Fecha y hora se registrarán automáticamente al confirmar.
-                </div>
-
-                <label class="closure-check">
-
-                    <input
-                        type="checkbox"
-                        id="closureConfirmation"
-                    >
-
-                    <span>
-                        Confirmo que se verificaron las tarjetas asociadas
-                        al bloqueo y que sus números seriales coinciden
-                        con los registrados en la solicitud.
-                    </span>
-
-                </label>
-
-                <label>
-                    Observaciones (opcional)
-
-                    <textarea
-                        id="closureObservations"
-                        placeholder="Escriba alguna observación..."
-                    ></textarea>
-
-                </label>
-
-                <button
-                    type="button"
-                    class="finish-closure"
-                    onclick="finishClosure('${block.id}')"
-                >
-                    TERMINAR / CERRAR BLOQUEO
-                </button>
-
-            </div>
-
-            <div class="closure-warning">
-                🔒 El equipo continúa bloqueado hasta que Operación complete el cierre.
-            </div>
-
-        </section>
-
-    `;
-}
-
-function openBlockDetail(id) {
-
-    const block = blocksData.find(
-        item => item.id === id
-    );
-
-    if (!block) {
-        return;
-    }
-
-    document.getElementById("modalTitle").textContent =
-        `${block.id} — ${block.status}`;
+    document.getElementById("modalTitle").textContent = block.id;
 
     document.getElementById("modalBody").innerHTML = `
 
-        <div class="detail-main-card">
-
-            <div class="detail-status">
-                ${block.status}
-            </div>
-
-            <h3>${block.equipment}</h3>
-
-            <p>
-                ${block.activity}
-            </p>
-
-            <span>
-                Tiempo bloqueado: ${block.blockedTime}
-            </span>
-
+        <div class="detail-item">
+            <span>EQUIPO</span>
+            <strong>${block.equipment}</strong>
         </div>
 
-        <div class="detail-info-grid">
-
-            <div class="detail-item">
-                <span>Ejecutante</span>
-                <strong>${block.executor}</strong>
-            </div>
-
-            <div class="detail-item">
-                <span>Departamento</span>
-                <strong>${block.department}</strong>
-            </div>
-
-            <div class="detail-item">
-                <span>Supervisor</span>
-                <strong>${block.supervisor}</strong>
-            </div>
-
-            <div class="detail-item">
-                <span>Solicitante</span>
-                <strong>${block.requester}</strong>
-            </div>
-
-            <div class="detail-item">
-                <span>Área</span>
-                <strong>${block.area}</strong>
-            </div>
-
-            <div class="detail-item">
-                <span>Fecha / hora de bloqueo</span>
-                <strong>
-                    ${block.date} ${block.time}
-                </strong>
-            </div>
-
+        <div class="detail-item">
+            <span>ACTIVIDAD</span>
+            <strong>${block.activity}</strong>
         </div>
 
-        <section class="detail-cards-section">
+        <div class="detail-item">
+            <span>SERIAL</span>
+            <strong>${block.serial}</strong>
+        </div>
 
-            <div class="detail-section-header">
+        <div class="detail-item">
+            <span>EJECUTANTE</span>
+            <strong>${block.executor}</strong>
+        </div>
 
-                <div>
-                    <span>TARJETAS / PUNTOS DE AISLAMIENTO</span>
-                    <h3>
-                        Tarjetas / puntos de aislamiento
-                    </h3>
-                </div>
+        <div class="detail-item">
+            <span>DEPARTAMENTO</span>
+            <strong>${block.department}</strong>
+        </div>
 
-                <strong>
-                    ${block.cards.length}
-                </strong>
+        <div class="detail-item">
+            <span>SUPERVISOR</span>
+            <strong>${block.supervisor}</strong>
+        </div>
 
-            </div>
+        <div class="detail-item">
+            <span>OPERADOR</span>
+            <strong>${block.operator || "No asignado"}</strong>
+        </div>
 
-            <div class="detail-cards-list">
+        <div class="detail-item">
+            <span>FECHA / HORA</span>
+            <strong>${formatDate(block.date)}, ${block.time}</strong>
+        </div>
 
-                ${renderCards(block.cards)}
+        <div class="detail-item">
+            <span>ESTADO</span>
+            <strong>${block.status}</strong>
+        </div>
 
-            </div>
-
-        </section>
-
-        <section class="audit-section">
-
-            <div class="detail-section-header">
-
-                <div>
-                    <span>SEGUIMIENTO</span>
-                    <h3>
-                        Línea de tiempo y auditoría
-                    </h3>
-                </div>
-
-            </div>
-
-            <div class="audit-timeline">
-
-                ${renderTimeline(
-                    block.timeline.map(item => ({
-                        ...item,
-                        blockId: block.id
-                    }))
-                )}
-
-            </div>
-
-        </section>
-
-        ${renderClosureValidation(block)}
+        <div class="detail-item">
+            <span>TIEMPO BLOQUEADO</span>
+            <strong>${block.blockedTime}</strong>
+        </div>
 
     `;
 
     document.getElementById("overlay").style.display = "block";
-
     document.getElementById("detailModal").classList.add("show");
 }
 
 function closeDetail() {
 
     document.getElementById("detailModal").classList.remove("show");
-
     document.getElementById("overlay").style.display = "none";
 }
 
-function finishClosure(id) {
+historySearch.addEventListener("input", filterHistory);
 
-    const operator = document.getElementById("closureOperator");
-    const supervisor = document.getElementById("closureSupervisor");
-    const confirmation = document.getElementById("closureConfirmation");
+statusFilter.addEventListener("change", filterHistory);
 
-    if (!operator || !operator.value.trim()) {
-        alert("Ingrese el operador de turno notificado del cierre.");
-        return;
-    }
+dateFrom.addEventListener("change", filterHistory);
 
-    if (!supervisor || !supervisor.value.trim()) {
-        alert("Ingrese el supervisor de turno.");
-        return;
-    }
+dateTo.addEventListener("change", filterHistory);
 
-    if (!confirmation || !confirmation.checked) {
-        alert("Debe confirmar la verificación de las tarjetas antes de continuar.");
-        return;
-    }
+document.getElementById("clearFilters").addEventListener("click", () => {
 
-    const block = blocksData.find(
-        item => item.id === id
-    );
+    historySearch.value = "";
+    statusFilter.value = "";
+    dateFrom.value = "";
+    dateTo.value = "";
 
-    if (!block) {
-        return;
-    }
+    renderHistory(historyData);
+});
 
-    block.status = "Terminado";
+document.getElementById("closeModal").addEventListener("click", closeDetail);
 
-    block.closedAt = new Date().toLocaleString("es-HN");
+document.getElementById("overlay").addEventListener("click", closeDetail);
 
-    block.timeline.push({
-        title: "Bloqueo terminado",
-        date: block.closedAt,
-        user: "Usuario actual",
-        email: "usuario@enersa-energia.com",
-        description: "Operación completó la validación y cierre del bloqueo"
-    });
+document.getElementById("mobileMenu").addEventListener("click", () => {
 
-    closeDetail();
+    document.getElementById("sidebar").classList.toggle("open");
+});
 
-    renderBlocks();
-
-    alert("El bloqueo ha sido cerrado correctamente.");
-}
-
-document.getElementById("closeModal").addEventListener(
-    "click",
-    closeDetail
-);
-
-document.getElementById("overlay").addEventListener(
-    "click",
-    closeDetail
-);
-
-document.getElementById("mobileMenu").addEventListener(
-    "click",
-    () => {
-        document.getElementById("sidebar").classList.toggle("open");
-    }
-);
-
-document.getElementById("newRequest").addEventListener(
-    "click",
-    () => {
-        window.location.href = "nueva-solicitud.html";
-    }
-);
-
-document.getElementById("openTray").addEventListener(
-    "click",
-    () => {
-        window.location.href = "bandeja de operación.html";
-    }
-);
-
-renderBlocks();
+renderHistory(historyData);

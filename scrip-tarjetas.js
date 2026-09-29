@@ -1,48 +1,5 @@
 const cardsData = [
-    {
-        serial: "TAR-001",
-        equipment: "Motor P001",
-        description: "Se va a realizar mantenimiento",
-        blockId: "BLQ-2026-0008",
-        installation: "Planta principal",
-        executor: "Allan Medina",
-        department: "Eléctrico",
-        status: "Activa",
-        activeTime: "56 h 13 min"
-    },
-    {
-        serial: "TAR-002",
-        equipment: "Motor P001",
-        description: "Se va a realizar mantenimiento",
-        blockId: "BLQ-2026-0008",
-        installation: "Planta principal",
-        executor: "Allan Medina",
-        department: "Eléctrico",
-        status: "Activa",
-        activeTime: "56 h 13 min"
-    },
-    {
-        serial: "TAR-003",
-        equipment: "Motor P001",
-        description: "Se va a realizar mantenimiento",
-        blockId: "BLQ-2026-0008",
-        installation: "Planta principal",
-        executor: "Allan Medina",
-        department: "Eléctrico",
-        status: "Activa",
-        activeTime: "56 h 13 min"
-    },
-    {
-        serial: "TAR-004",
-        equipment: "Panel ESSER",
-        description: "Prueba realizada del SCI",
-        blockId: "BLQ-2026-0007",
-        installation: "Sistema contra incendios",
-        executor: "Técnico eléctrico",
-        department: "Ambiente",
-        status: "Activa",
-        activeTime: "62 h 17 min"
-    },
+
     {
         serial: "TAR-005",
         equipment: "Veolia",
