@@ -94,7 +94,9 @@
                     REGISTRO EN LÍNEA
                 </div>
 
-                <button class="top-icon">🔔</button>
+                <button class="top-icon" id="notificationButton" title="Notificaciones">
+                    🔔
+                </button>
 
                 <button class="home-button" onclick="window.location.href='index.html'">
                     ⌂ <span>Inicio</span>
@@ -122,7 +124,7 @@
 
                     <div class="form-card-heading">
                         <div>
-                            <div class="section-label">INFORMACIÓN GENERAL</div>
+                            <div class="section-label">INFORACION PERSONAL</div>
                             <h2>Datos de la solicitud</h2>
                         </div>
                     </div>
@@ -131,32 +133,87 @@
 
                         <div class="form-group">
                             <label for="equipment">Equipo a bloquear</label>
-                            <input type="text" id="equipment" name="equipment" placeholder="Ingrese el equipo">
+                            <input
+                                type="text"
+                                id="equipment"
+                                name="equipment"
+                                placeholder="Ingrese el equipo"
+                            >
                         </div>
 
                         <div class="form-group">
                             <label for="location">Área / ubicación</label>
-                            <input type="text" id="location" name="location" placeholder="Ingrese el área o ubicación">
+
+                            <select id="location" name="location">
+                                <option value="">Seleccione un área</option>
+                                <option value="Almacén">Almacén</option>
+                                <option value="Área de calderas">Área de calderas</option>
+                                <option value="Área de radiadores">Área de radiadores</option>
+                                <option value="Área Filtros de admisión">Área Filtros de admisión</option>
+                                <option value="Área pila 1">Área pila 1</option>
+                                <option value="Área Veolia">Área Veolia</option>
+                                <option value="Casa de bombas">Casa de bombas</option>
+                                <option value="Cubeto">Cubeto</option>
+                                <option value="Edificio administrativo">Edificio administrativo</option>
+                                <option value="Otra (especificar)">Otra (especificar)</option>
+                                <option value="Patio de tanques">Patio de tanques</option>
+                                <option value="Rack de descarga">Rack de descarga</option>
+                                <option value="Sala de máquinas">Sala de máquinas</option>
+                                <option value="Sala de máquinas cogeneración">Sala de máquinas cogeneración</option>
+                                <option value="Subestación">Subestación</option>
+                                <option value="Talleres">Talleres</option>
+                            </select>
+
                         </div>
 
                         <div class="form-group">
                             <label for="executor">Ejecutante</label>
-                            <input type="text" id="executor" name="executor" placeholder="Nombre del ejecutante">
+                            <input
+                                type="text"
+                                id="executor"
+                                name="executor"
+                                placeholder="Nombre del ejecutante"
+                            >
                         </div>
 
                         <div class="form-group">
                             <label for="supervisor">Supervisor que asignó</label>
-                            <input type="text" id="supervisor" name="supervisor" placeholder="Nombre del supervisor">
+                            <input
+                                type="text"
+                                id="supervisor"
+                                name="supervisor"
+                                placeholder="Nombre del supervisor"
+                            >
                         </div>
 
                         <div class="form-group">
                             <label for="department">Departamento</label>
-                            <input type="text" id="department" name="department" placeholder="Ingrese el departamento">
+
+                            <select id="department" name="department">
+                                <option value="">Seleccione un departamento</option>
+                                <option value="Almacén">Almacén</option>
+                                <option value="Ambiente">Ambiente</option>
+                                <option value="Calidad">Calidad</option>
+                                <option value="Eléctrico">Eléctrico</option>
+                                <option value="Eléctrico Cog">Eléctrico Cog</option>
+                                <option value="Mecánico">Mecánico</option>
+                                <option value="Mecánico Cog">Mecánico Cog</option>
+                                <option value="Operación">Operación</option>
+                                <option value="Operación Cog">Operación Cog</option>
+                            </select>
+
                         </div>
 
                         <div class="form-group full">
                             <label for="description">Descripción de la actividad</label>
-                            <textarea id="description" name="description" rows="4" placeholder="Describa la actividad que se realizará"></textarea>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="4"
+                                placeholder="Describa la actividad que se realizará"
+                            ></textarea>
+
                         </div>
 
                     </div>
@@ -187,12 +244,22 @@
 
                                 <div class="form-group">
                                     <label>Serial</label>
-                                    <input type="text" name="serial[]" placeholder="Ingrese el serial">
+
+                                    <input
+                                        type="text"
+                                        name="serial[]"
+                                        placeholder="Ingrese el serial"
+                                    >
                                 </div>
 
                                 <div class="form-group">
                                     <label>Descripción</label>
-                                    <input type="text" name="cardDescription[]" placeholder="Descripción del punto de aislamiento">
+
+                                    <input
+                                        type="text"
+                                        name="cardDescription[]"
+                                        placeholder="Descripción del punto de aislamiento"
+                                    >
                                 </div>
 
                             </div>
@@ -220,18 +287,32 @@
                     </div>
 
                     <div class="form-group">
-                        <textarea id="observations" name="observations" rows="5" placeholder="Ingrese observaciones adicionales"></textarea>
+
+                        <textarea
+                            id="observations"
+                            name="observations"
+                            rows="5"
+                            placeholder="Ingrese observaciones adicionales"
+                        ></textarea>
+
                     </div>
 
                 </section>
 
                 <div class="form-actions">
 
-                    <button type="button" class="cancel-button" onclick="window.location.href='index.html'">
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="window.location.href='index.html'"
+                    >
                         Cancelar
                     </button>
 
-                    <button type="submit" class="draft-button">
+                    <button
+                        type="submit"
+                        class="draft-button"
+                    >
                         Crear borrador
                     </button>
 
