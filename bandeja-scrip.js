@@ -1,151 +1,395 @@
-function openApproval(button) {
-
-    const detail = document.getElementById("approvalDetail");
-
-    detail.classList.toggle("show");
-
-    button.classList.toggle("rotated");
-}
-
-
-function closeApproval() {
-
-    const detail = document.getElementById("approvalDetail");
-
-    detail.classList.remove("show");
-
-    const button = document.querySelector(
-        ".request-card .expand-request"
+function obtenerSolicitudesBandeja() {
+    const datos = localStorage.getItem(
+        "enersa_solicitudes"
     );
 
-    if (button) {
-        button.classList.remove("rotated");
+    if (!datos) {
+        return [];
+    }
+
+    try {
+        return JSON.parse(datos);
+    } catch (error) {
+        console.error(error);
+        return [];
     }
 }
 
-
-function approveRequest() {
-
-    const approvalSection = document
-        .getElementById("approvalDetail")
-        .closest(".tray-section");
-
-    const card = approvalSection.querySelector(".request-card");
-
-    card.classList.add("approved");
-
-    card.innerHTML = `
-        <div class="request-main">
-            <div class="request-id">
-                BLQ-2026-0009
-            </div>
-
-            <h3>
-                Motor P002
-            </h3>
-
-            <p>
-                Bloqueo aprobado correctamente
-            </p>
-        </div>
-
-        <div class="approved-status">
-            ✓ Aprobado
-        </div>
-    `;
-
-    document
-        .getElementById("approvalDetail")
-        .classList.remove("show");
-
-    document.getElementById("approvalTotal").textContent = "0";
+function guardarSolicitudesBandeja(solicitudes) {
+    localStorage.setItem(
+        "enersa_solicitudes",
+        JSON.stringify(solicitudes)
+    );
 }
 
+function obtenerSolicitudBandeja(id) {
+    const solicitudes =
+        obtenerSolicitudesBandeja();
 
-function openCloseRequest(button) {
-
-    const detail = document.getElementById("closeDetail");
-
-    detail.classList.toggle("show");
-
-    button.classList.toggle("rotated");
+    return solicitudes.find(
+        solicitud => solicitud.id === id
+    );
 }
 
+function actualizarEstadoBandeja(
+    id,
+    nuevoEstado
+) {
+    const solicitudes =
+        obtenerSolicitudesBandeja();
 
-function closeCloseRequest() {
-
-    const detail = document.getElementById("closeDetail");
-
-    detail.classList.remove("show");
-
-    const button = document.querySelectorAll(
-        ".expand-request"
-    )[1];
-
-    if (button) {
-        button.classList.remove("rotated");
-    }
-}
-
-
-function finishClosure() {
-
-    const record = document
-        .getElementById("operationRecord")
-        .value
-        .trim();
-
-    if (record === "") {
-
-        alert(
-            "Debe ingresar el campo de registro antes de terminar el cierre."
+    const indice =
+        solicitudes.findIndex(
+            solicitud => solicitud.id === id
         );
 
+    if (indice === -1) {
+        return false;
+    }
+
+    solicitudes[indice].status =
+        nuevoEstado;
+
+    solicitudes[indice].updatedAt =
+        new Date().toISOString();
+
+    guardarSolicitudesBandeja(
+        solicitudes
+    );
+
+    return true;
+}
+
+function obtenerPendientesAprobacion() {
+    return obtenerSolicitudesBandeja().filter(
+        solicitud =>
+            solicitud.status ===
+            "Pendiente de aprobación"
+    );
+}
+
+function obtenerPendientesCierre() {
+    return obtenerSolicitudesBandeja().filter(
+        solicitud =>
+            solicitud.status ===
+            "Pendiente de cierre"
+    );
+}
+
+function actualizarContadores() {
+    const pendientes =
+        obtenerPendientesAprobacion();
+
+    const cierres =
+        obtenerPendientesCierre();
+
+    const approvalTotal =
+        document.getElementById(
+            "approvalTotal"
+        );
+
+    const closeTotal =
+        document.getElementById(
+            "closeTotal"
+        );
+
+    if (approvalTotal) {
+        approvalTotal.textContent =
+            pendientes.length;
+    }
+
+    if (closeTotal) {
+        closeTotal.textContent =
+            cierres.length;
+    }
+}
+
+function mostrarSolicitudOperacion(
+    solicitud
+) {
+    const detail =
+        document.getElementById(
+            "approvalDetail"
+        );
+
+    if (!detail || !solicitud) {
         return;
     }
 
-    const closeSection = document
-        .getElementById("closeDetail")
-        .closest(".tray-section");
+    const equipo =
+        detail.querySelector(
+            ".detail-value"
+        );
 
-    const card = closeSection.querySelector(".request-card");
+    if (equipo) {
+        equipo.textContent =
+            solicitud.equipment || "-";
+    }
 
-    card.classList.add("approved");
+    const valores =
+        detail.querySelectorAll(
+            ".detail-value"
+        );
 
-    card.innerHTML = `
-        <div class="request-main">
-            <div class="request-id">
-                BLQ-2026-0007
-            </div>
+    if (valores.length > 1) {
+        valores[1].textContent =
+            solicitud.activity || "-";
+    }
 
-            <h3>
-                Panel ESSER
-            </h3>
+    if (valores.length > 2) {
+        valores[2].textContent =
+            solicitud.executor || "-";
+    }
 
-            <p>
-                Cierre de bloqueo registrado correctamente
-            </p>
-        </div>
+    if (valores.length > 3) {
+        valores[3].textContent =
+            solicitud.department || "-";
+    }
 
-        <div class="approved-status">
-            ✓ Cierre terminado
-        </div>
-    `;
+    if (valores.length > 4) {
+        valores[4].textContent =
+            solicitud.supervisor || "-";
+    }
 
-    document
-        .getElementById("closeDetail")
-        .classList.remove("show");
-
-    document.getElementById("closeTotal").textContent = "0";
+    window.solicitudOperacion =
+        solicitud.id;
 }
 
+function openApproval(button) {
+    const detail =
+        document.getElementById(
+            "approvalDetail"
+        );
 
-document
-    .getElementById("mobileMenu")
-    .addEventListener("click", function () {
+    if (!detail) {
+        return;
+    }
 
-        document
-            .getElementById("sidebar")
-            .classList.toggle("open");
+    const solicitudes =
+        obtenerPendientesAprobacion();
 
-    });
+    if (solicitudes.length === 0) {
+        alert(
+            "No hay solicitudes pendientes de aprobación."
+        );
+        return;
+    }
+
+    const solicitud =
+        solicitudes[0];
+
+    mostrarSolicitudOperacion(
+        solicitud
+    );
+
+    detail.classList.toggle(
+        "show"
+    );
+
+    if (button) {
+        button.classList.toggle(
+            "rotated"
+        );
+    }
+}
+
+function closeApproval() {
+    const detail =
+        document.getElementById(
+            "approvalDetail"
+        );
+
+    if (detail) {
+        detail.classList.remove(
+            "show"
+        );
+    }
+
+    const button =
+        document.querySelector(
+            ".request-card .expand-request"
+        );
+
+    if (button) {
+        button.classList.remove(
+            "rotated"
+        );
+    }
+}
+
+function approveRequest() {
+    let id =
+        window.solicitudOperacion;
+
+    if (!id) {
+        const solicitudes =
+            obtenerPendientesAprobacion();
+
+        if (solicitudes.length > 0) {
+            id =
+                solicitudes[0].id;
+        }
+    }
+
+    if (!id) {
+        alert(
+            "No hay solicitudes pendientes de aprobación."
+        );
+        return;
+    }
+
+    const solicitud =
+        obtenerSolicitudBandeja(id);
+
+    if (!solicitud) {
+        alert(
+            "No se encontró la solicitud."
+        );
+        return;
+    }
+
+    actualizarEstadoBandeja(
+        id,
+        "Bloqueo activo"
+    );
+
+    closeApproval();
+    actualizarContadores();
+
+    alert(
+        "La solicitud " +
+        id +
+        " fue aprobada correctamente."
+    );
+
+    location.reload();
+}
+
+function openCloseRequest(button) {
+    const detail =
+        document.getElementById(
+            "closeDetail"
+        );
+
+    if (!detail) {
+        return;
+    }
+
+    const solicitudes =
+        obtenerPendientesCierre();
+
+    if (solicitudes.length === 0) {
+        alert(
+            "No hay solicitudes pendientes de cierre."
+        );
+        return;
+    }
+
+    window.solicitudCierre =
+        solicitudes[0].id;
+
+    detail.classList.toggle(
+        "show"
+    );
+
+    if (button) {
+        button.classList.toggle(
+            "rotated"
+        );
+    }
+}
+
+function closeCloseRequest() {
+    const detail =
+        document.getElementById(
+            "closeDetail"
+        );
+
+    if (detail) {
+        detail.classList.remove(
+            "show"
+        );
+    }
+}
+
+function finishClosure() {
+    const record =
+        document.getElementById(
+            "operationRecord"
+        );
+
+    if (!record) {
+        return;
+    }
+
+    const valor =
+        record.value.trim();
+
+    if (!valor) {
+        alert(
+            "Debe ingresar el registro de operación."
+        );
+        return;
+    }
+
+    let id =
+        window.solicitudCierre;
+
+    if (!id) {
+        const solicitudes =
+            obtenerPendientesCierre();
+
+        if (solicitudes.length > 0) {
+            id =
+                solicitudes[0].id;
+        }
+    }
+
+    if (!id) {
+        alert(
+            "No hay solicitudes pendientes de cierre."
+        );
+        return;
+    }
+
+    actualizarEstadoBandeja(
+        id,
+        "Terminado"
+    );
+
+    closeCloseRequest();
+    actualizarContadores();
+
+    alert(
+        "El cierre de " +
+        id +
+        " fue registrado correctamente."
+    );
+
+    location.reload();
+}
+
+const mobileMenu =
+    document.getElementById(
+        "mobileMenu"
+    );
+
+if (mobileMenu) {
+    mobileMenu.addEventListener(
+        "click",
+        () => {
+            const sidebar =
+                document.getElementById(
+                    "sidebar"
+                );
+
+            if (sidebar) {
+                sidebar.classList.toggle(
+                    "open"
+                );
+            }
+        }
+    );
+}
+
+actualizarContadores();

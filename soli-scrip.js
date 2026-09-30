@@ -1,214 +1,392 @@
-const requestsData = [
-    {
-        id: "BLQ-2026-0008",
-        equipment: "Motor P001",
-        executor: "Allan Medina",
-        department: "Eléctrico",
-        supervisor: "Carlos Hernández",
-        dateTime: "08/09/2026 08:30",
-        cards: "3",
-        status: "Bloqueo activo",
-        blockedTime: "56 h 13 min"
-    },
-    {
-        id: "BLQ-2026-0007",
-        equipment: "Panel ESSER",
-        executor: "Técnico eléctrico",
-        department: "Ambiente",
-        supervisor: "María López",
-        dateTime: "08/09/2026 07:45",
-        cards: "1",
-        status: "Pendiente de cierre",
-        blockedTime: "62 h 17 min"
-    },
-    {
-        id: "BLQ-2026-0006",
-        equipment: "Veolia",
-        executor: "Luis Ortiz",
-        department: "Mecánico",
-        supervisor: "Carlos Hernández",
-        dateTime: "08/09/2026 07:20",
-        cards: "1",
-        status: "Bloqueo activo",
-        blockedTime: "62 h 19 min"
-    },
-    {
-        id: "BLQ-2026-0005",
-        equipment: "Bomba P005",
-        executor: "Victor Molina",
-        department: "Mecánico",
-        supervisor: "Ana Martínez",
-        dateTime: "08/09/2026 07:10",
-        cards: "3",
-        status: "Pendiente de aprobación",
-        blockedTime: "62 h 18 min"
-    },
-    {
-        id: "BLQ-2026-0004",
-        equipment: "Compresor #1",
-        executor: "Juan Perez",
-        department: "Mecánico",
-        supervisor: "Carlos Hernández",
-        dateTime: "08/09/2026 06:50",
-        cards: "3",
-        status: "Terminado",
-        blockedTime: "62 h 18 min"
-    }
-];
+const STORAGE_KEY = "enersa_solicitudes";
 
-const requestsTable = document.getElementById("requestsTable");
-const requestCount = document.getElementById("requestCount");
+function obtenerSolicitudes() {
+    const datos = localStorage.getItem(STORAGE_KEY);
+
+    if (!datos) {
+        return [];
+    }
+
+    try {
+        return JSON.parse(datos);
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+function guardarSolicitudes(solicitudes) {
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(solicitudes)
+    );
+}
+
+function generarIdSolicitud() {
+    const solicitudes = obtenerSolicitudes();
+    let mayor = 0;
+
+    solicitudes.forEach(solicitud => {
+        if (!solicitud.id) return;
+
+        const partes = solicitud.id.split("-");
+        const numero = parseInt(partes[2]);
+
+        if (!isNaN(numero) && numero > mayor) {
+            mayor = numero;
+        }
+    });
+
+    mayor++;
+
+    return "BLQ-2026-" + String(mayor).padStart(4, "0");
+}
+
+function crearSolicitud(datos) {
+    const solicitudes = obtenerSolicitudes();
+
+    const nuevaSolicitud = {
+        id: generarIdSolicitud(),
+        equipment: datos.equipment || "",
+        activity: datos.activity || "",
+        executor: datos.executor || "",
+        department: datos.department || "",
+        supervisor: datos.supervisor || "",
+        applicant: datos.applicant || "",
+        dateTime: datos.dateTime || new Date().toLocaleString("es-HN"),
+        cards: datos.cards || "0",
+        status: "Borrador",
+        blockedTime: "0 h 00 min",
+        area: datos.area || "",
+        description: datos.description || "",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    };
+
+    solicitudes.push(nuevaSolicitud);
+    guardarSolicitudes(solicitudes);
+
+    return nuevaSolicitud;
+}
+
+function actualizarEstado(id, nuevoEstado) {
+    const solicitudes = obtenerSolicitudes();
+
+    const indice = solicitudes.findIndex(
+        solicitud => solicitud.id === id
+    );
+
+    if (indice === -1) {
+        return false;
+    }
+
+    solicitudes[indice].status = nuevoEstado;
+    solicitudes[indice].updatedAt = new Date().toISOString();
+
+    guardarSolicitudes(solicitudes);
+
+    return true;
+}
+
+function obtenerSolicitud(id) {
+    const solicitudes = obtenerSolicitudes();
+
+    return solicitudes.find(
+        solicitud => solicitud.id === id
+    );
+}
 
 function getStatusClass(status) {
+    switch (status) {
+        case "Borrador":
+            return "draft";
 
-    if (status === "Bloqueo activo") {
-        return "active";
+        case "Pendiente de aprobación":
+            return "pending";
+
+        case "Bloqueo activo":
+            return "active";
+
+        case "Pendiente de cierre":
+            return "closing";
+
+        case "Terminado":
+            return "finished";
+
+        default:
+            return "";
     }
+}
 
-    if (status === "Pendiente de aprobación") {
-        return "pending";
-    }
+function obtenerMisSolicitudes() {
+    const solicitudes = obtenerSolicitudes();
 
-    if (status === "Pendiente de cierre") {
-        return "closing";
-    }
-
-    if (status === "Terminado") {
-        return "finished";
-    }
-
-    return "";
+    return solicitudes.filter(
+        solicitud =>
+            solicitud.status === "Borrador" ||
+            solicitud.status === "Pendiente de aprobación"
+    );
 }
 
 function renderRequests() {
+    const tabla = document.getElementById("requestsTable");
+    const contador = document.getElementById("requestCount");
 
-    requestsTable.innerHTML = requestsData.map((request, index) => `
+    if (!tabla) {
+        return;
+    }
 
-        <tr>
+    const solicitudes = obtenerMisSolicitudes();
 
-            <td class="id-cell">
-                ${request.id}
-            </td>
+    if (solicitudes.length === 0) {
+        tabla.innerHTML = `
+            <tr>
+                <td colspan="10" style="text-align:center;padding:30px;">
+                    No hay solicitudes registradas.
+                </td>
+            </tr>
+        `;
+    } else {
+        tabla.innerHTML = solicitudes.map(
+            solicitud => `
+                <tr>
+                    <td class="id-cell">
+                        ${solicitud.id}
+                    </td>
 
-            <td class="equipment">
-                <strong>${request.equipment}</strong>
-            </td>
+                    <td class="equipment">
+                        <strong>
+                            ${solicitud.equipment || "-"}
+                        </strong>
 
-            <td>
-                ${request.executor}
-            </td>
+                        ${
+                            solicitud.activity
+                                ? `<small>${solicitud.activity}</small>`
+                                : ""
+                        }
+                    </td>
 
-            <td>
-                ${request.department}
-            </td>
+                    <td>
+                        ${solicitud.executor || "-"}
+                    </td>
 
-            <td>
-                ${request.supervisor}
-            </td>
+                    <td>
+                        ${solicitud.department || "-"}
+                    </td>
 
-            <td>
-                ${request.dateTime}
-            </td>
+                    <td>
+                        ${solicitud.supervisor || "-"}
+                    </td>
 
-            <td>
-                ${request.cards}
-            </td>
+                    <td>
+                        ${solicitud.dateTime || "-"}
+                    </td>
 
-            <td>
-                <span class="status ${getStatusClass(request.status)}">
-                    ${request.status}
-                </span>
-            </td>
+                    <td>
+                        ${solicitud.cards || "0"}
+                    </td>
 
-            <td class="time-cell">
-                ${request.blockedTime}
-            </td>
+                    <td>
+                        <span class="status ${getStatusClass(solicitud.status)}">
+                            ${solicitud.status}
+                        </span>
+                    </td>
 
-            <td>
-                <button class="detail-button" onclick="openRequestDetail(${index})">
-                    ›
-                </button>
-            </td>
+                    <td class="time-cell">
+                        ${solicitud.blockedTime}
+                    </td>
 
-        </tr>
+                    <td>
+                        <button
+                            class="detail-button"
+                            onclick="openRequestDetail('${solicitud.id}')"
+                        >
+                            ›
+                        </button>
+                    </td>
+                </tr>
+            `
+        ).join("");
+    }
 
-    `).join("");
-
-    requestCount.textContent = requestsData.length;
+    if (contador) {
+        contador.textContent = solicitudes.length;
+    }
 }
 
-function openRequestDetail(index) {
+function openRequestDetail(id) {
+    const solicitud = obtenerSolicitud(id);
 
-    const request = requestsData[index];
+    if (!solicitud) {
+        return;
+    }
 
-    document.getElementById("modalTitle").textContent = request.id;
+    window.solicitudSeleccionada = id;
 
-    document.getElementById("modalBody").innerHTML = `
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
 
-        <div class="detail-item">
-            <span>ID</span>
-            <strong>${request.id}</strong>
-        </div>
+    if (modalTitle) {
+        modalTitle.textContent = solicitud.id;
+    }
 
-        <div class="detail-item">
-            <span>EQUIPO / ACTIVIDAD</span>
-            <strong>${request.equipment}</strong>
-        </div>
+    if (modalBody) {
+        modalBody.innerHTML = `
+            <div class="detail-item">
+                <span>ID</span>
+                <strong>${solicitud.id}</strong>
+            </div>
 
-        <div class="detail-item">
-            <span>EJECUTANTE</span>
-            <strong>${request.executor}</strong>
-        </div>
+            <div class="detail-item">
+                <span>EQUIPO / ACTIVIDAD</span>
+                <strong>${solicitud.equipment || "-"}</strong>
+                ${
+                    solicitud.activity
+                        ? `<small>${solicitud.activity}</small>`
+                        : ""
+                }
+            </div>
 
-        <div class="detail-item">
-            <span>DEPARTAMENTO</span>
-            <strong>${request.department}</strong>
-        </div>
+            <div class="detail-item">
+                <span>EJECUTANTE</span>
+                <strong>${solicitud.executor || "-"}</strong>
+            </div>
 
-        <div class="detail-item">
-            <span>SUPERVISOR</span>
-            <strong>${request.supervisor}</strong>
-        </div>
+            <div class="detail-item">
+                <span>DEPARTAMENTO</span>
+                <strong>${solicitud.department || "-"}</strong>
+            </div>
 
-        <div class="detail-item">
-            <span>FECHA / HORA DE BLOQUEO</span>
-            <strong>${request.dateTime}</strong>
-        </div>
+            <div class="detail-item">
+                <span>SUPERVISOR</span>
+                <strong>${solicitud.supervisor || "-"}</strong>
+            </div>
 
-        <div class="detail-item">
-            <span>TARJETAS</span>
-            <strong>${request.cards}</strong>
-        </div>
+            <div class="detail-item">
+                <span>FECHA / HORA DE BLOQUEO</span>
+                <strong>${solicitud.dateTime || "-"}</strong>
+            </div>
 
-        <div class="detail-item">
-            <span>ESTADO</span>
-            <strong>${request.status}</strong>
-        </div>
+            <div class="detail-item">
+                <span>TARJETAS</span>
+                <strong>${solicitud.cards || "0"}</strong>
+            </div>
 
-        <div class="detail-item">
-            <span>TIEMPO BLOQUEADO</span>
-            <strong>${request.blockedTime}</strong>
-        </div>
+            <div class="detail-item">
+                <span>ESTADO</span>
+                <strong>${solicitud.status}</strong>
+            </div>
 
-    `;
+            <div class="detail-item">
+                <span>TIEMPO BLOQUEADO</span>
+                <strong>${solicitud.blockedTime}</strong>
+            </div>
 
-    document.getElementById("overlay").style.display = "block";
-    document.getElementById("detailModal").classList.add("show");
+            <div class="detail-item">
+                <span>ÁREA</span>
+                <strong>${solicitud.area || "-"}</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>DESCRIPCIÓN</span>
+                <strong>${solicitud.description || "-"}</strong>
+            </div>
+        `;
+    }
+
+    const overlay = document.getElementById("overlay");
+    const detailModal = document.getElementById("detailModal");
+
+    if (overlay) {
+        overlay.style.display = "block";
+    }
+
+    if (detailModal) {
+        detailModal.classList.add("show");
+    }
 }
 
 function closeDetail() {
+    const detailModal = document.getElementById("detailModal");
+    const overlay = document.getElementById("overlay");
 
-    document.getElementById("detailModal").classList.remove("show");
-    document.getElementById("overlay").style.display = "none";
+    if (detailModal) {
+        detailModal.classList.remove("show");
+    }
 
+    if (overlay) {
+        overlay.style.display = "none";
+    }
 }
 
-document.getElementById("closeModal").addEventListener("click", closeDetail);
+function enviarSolicitudAOperacion() {
+    const id = window.solicitudSeleccionada;
 
-document.getElementById("overlay").addEventListener("click", closeDetail);
+    if (!id) {
+        alert("No hay ninguna solicitud seleccionada.");
+        return;
+    }
 
-document.getElementById("mobileMenu").addEventListener("click", () => {
-    document.getElementById("sidebar").classList.toggle("open");
-});
+    const solicitud = obtenerSolicitud(id);
+
+    if (!solicitud) {
+        alert("No se encontró la solicitud.");
+        return;
+    }
+
+    if (solicitud.status !== "Borrador") {
+        alert("Esta solicitud ya fue enviada.");
+        return;
+    }
+
+    actualizarEstado(
+        id,
+        "Pendiente de aprobación"
+    );
+
+    closeDetail();
+    renderRequests();
+
+    alert(
+        "La solicitud fue enviada a Operación correctamente."
+    );
+}
+
+const closeModal =
+    document.getElementById("closeModal");
+
+if (closeModal) {
+    closeModal.addEventListener(
+        "click",
+        closeDetail
+    );
+}
+
+const overlay =
+    document.getElementById("overlay");
+
+if (overlay) {
+    overlay.addEventListener(
+        "click",
+        closeDetail
+    );
+}
+
+const mobileMenu =
+    document.getElementById("mobileMenu");
+
+if (mobileMenu) {
+    mobileMenu.addEventListener(
+        "click",
+        () => {
+            const sidebar =
+                document.getElementById("sidebar");
+
+            if (sidebar) {
+                sidebar.classList.toggle("open");
+            }
+        }
+    );
+}
 
 renderRequests();
