@@ -2648,3 +2648,138 @@ a.menu-item.active {
 
 }
 
+.notification-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    z-index: 9998;
+}
+
+.notification-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 390px;
+    max-width: 90%;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -8px 0 30px rgba(0, 0, 0, 0.12);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-panel.open {
+    transform: translateX(0);
+}
+
+.notification-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    color: #64748b;
+    border-radius: 8px;
+}
+
+.notification-close:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.notification-header {
+    padding: 32px 28px 22px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.notification-header h2 {
+    margin: 0;
+    padding-right: 35px;
+    font-size: 22px;
+    color: #172033;
+}
+
+.notification-header p {
+    margin: 7px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.notification-list {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.no-notifications {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.notification-item {
+    display: flex;
+    gap: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.notification-item-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #eef4ff;
+    color: #2563eb;
+}
+
+.notification-item-content {
+    flex: 1;
+}
+
+.notification-item-content strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #172033;
+    font-size: 14px;
+}
+
+.notification-item-content p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .notification-panel {
+        width: 100%;
+        max-width: 100%;
+    }
+}

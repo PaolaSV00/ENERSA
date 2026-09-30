@@ -94,7 +94,9 @@
                     REGISTRO EN LÍNEA
                 </div>
 
-                <button class="top-icon">🔔</button>
+                <button class="top-icon" id="notificationButton" title="Notificaciones">
+                🔔
+                </button>
 
                 <button class="home-button" onclick="window.location.href='index.html'">
                     ⌂ <span>Inicio</span>
@@ -220,6 +222,7 @@
                     <option value="Operador">Operador</option>
                     <option value="Solicitante">Solicitante</option>
                     <option value="Administrador">Administrador</option>
+                    <option value="Supervisor">Supervisor</option>
 
                 </select>
             </label>
@@ -242,7 +245,39 @@
 
 </div>
 
+<div class="notification-overlay" id="notificationOverlay"></div>
+
+<aside class="notification-panel" id="notificationPanel">
+
+    <button class="notification-close" id="notificationClose">
+        ×
+    </button>
+
+    <div class="notification-header">
+
+        <h2>
+            Notificaciones
+        </h2>
+        <p>
+            Actualizaciones de solicitudes y cierres
+        </p>
+
+    </div>
+
+    <div class="notification-list" id="notificationList">
+
+        <div class="no-notifications">
+            Sin notificaciones nuevas.
+        </div>
+
+    </div>
+
+    <div>
+
+</aside>
+
 <script src="administracion.js"></script>
+<script src="notificaciones.js"></script>
 
 </body>
 </html>

@@ -94,10 +94,9 @@
                     REGISTRO EN LÍNEA
                 </div>
 
-            <button class="top-icon" id="notificationButton "
-                litle="Notificaciones">
+            <button class="top-icon" id="notificationButton" title="Notificaciones">
                 🔔
-            </button>
+                </button>
 
                 <button class="home-button" onclick="window.location.href='index.html'">
                     ⌂ <span>Inicio</span>
@@ -246,8 +245,41 @@
     <div class="modal-body" id="modalBody"></div>
 
 </div>
+<div class="modal-body" id="modalBody"></div>
+
+</div>
+<div class="notification-overlay" id="notificationOverlay"></div>
+
+<aside class="notification-panel" id="notificationPanel">
+
+    <button class="notification-close" id="notificationClose">
+        ×
+    </button>
+
+    <div class="notification-header">
+
+        <h2>
+            Notificaciones
+        </h2>
+
+        <p>
+            Actualizaciones de solicitudes y cierres
+        </p>
+
+    </div>
+
+    <div class="notification-list" id="notificationList">
+
+        <div class="no-notifications">
+            Sin notificaciones nuevas.
+        </div>
+
+    </div>
+
+</aside>
 
 <script src="historial.js"></script>
+<script src="notificaciones.js"></script>
 
 </body>
 </html>
