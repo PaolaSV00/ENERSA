@@ -1,9 +1,9 @@
 <?php
 
-$servidor = "localhost:8088";
+$servidor = "localhost";
 $usuario = "root";
 $password = "";
-$base_datos = "control-bloqueos";
+$base_datos = "control_bloqueos";
 
 $conn = new mysqli(
     $servidor,

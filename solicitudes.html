@@ -5,6 +5,255 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis solicitudes - Control de Planta</title>
     <link rel="stylesheet" href="estilo.css">
+    <style>
+        .request-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(680px, 92vw);
+            height: 100vh;
+            background: #f7fafc;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform .3s ease;
+            overflow-y: auto;
+            box-shadow: -8px 0 30px rgba(0,0,0,.18);
+        }
+
+        .request-drawer.show {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            padding: 25px 28px 20px;
+            background: #f7fafc;
+            border-bottom: 1px solid #dce4e9;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .drawer-header span {
+            display: block;
+            font-size: 13px;
+            color: #71818c;
+            margin-bottom: 7px;
+        }
+
+        .drawer-header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #163d52;
+        }
+
+        .drawer-close {
+            border: 0;
+            background: transparent;
+            font-size: 28px;
+            color: #71818c;
+            cursor: pointer;
+        }
+
+        .drawer-content {
+            padding: 20px 28px 35px;
+        }
+
+        .equipment-card {
+            background: #173f53;
+            color: white;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .equipment-card h3 {
+            margin: 0 0 8px;
+            font-size: 22px;
+        }
+
+        .equipment-card p {
+            margin: 0;
+            opacity: .9;
+        }
+
+        .request-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #dce4e9;
+        }
+
+        .info-item span {
+            display: block;
+            color: #82919a;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #254456;
+            font-size: 14px;
+        }
+
+        .cards-section {
+            margin-top: 22px;
+            border: 1px solid #ecd9b5;
+            background: #fffaf1;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .cards-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #385465;
+        }
+
+        .cards-header strong {
+            font-size: 16px;
+        }
+
+        .cards-count {
+            background: #fff0d2;
+            color: #ad7110;
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .card-row {
+            background: white;
+            border: 1px solid #e7d9c1;
+            border-radius: 6px;
+            padding: 13px;
+            display: grid;
+            grid-template-columns: 110px 1fr auto;
+            gap: 15px;
+            margin-top: 8px;
+            align-items: center;
+        }
+
+        .card-row strong {
+            color: #254456;
+        }
+
+        .card-status {
+            color: #a06b13;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .timeline-section {
+            margin-top: 24px;
+        }
+
+        .timeline-title {
+            color: #315365;
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 28px;
+            border-left: 2px solid #d8e0e4;
+            padding-bottom: 18px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #e1a22d;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px #e1a22d;
+        }
+
+        .timeline-item strong {
+            display: block;
+            color: #294b5d;
+            margin-bottom: 6px;
+        }
+
+        .timeline-item small {
+            display: block;
+            color: #81909a;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item span {
+            color: #617581;
+            font-size: 13px;
+        }
+
+        .drawer-actions {
+            margin-top: 10px;
+            padding: 20px;
+            border: 1px solid #d8e4e9;
+            border-radius: 8px;
+            background: #f5fafc;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .drawer-edit {
+            border: 1px solid #c9d7de;
+            background: #edf3f6;
+            color: #29495a;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .drawer-send {
+            border: 0;
+            background: #173f53;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .drawer-send:hover {
+            background: #24556d;
+        }
+
+        .empty-cards {
+            color: #788993;
+            font-size: 13px;
+            padding: 10px 0;
+        }
+
+        @media (max-width: 650px) {
+            .request-info-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .drawer-content {
+                padding: 18px;
+            }
+
+            .drawer-header {
+                padding: 20px 18px;
+            }
+
+            .card-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -32,7 +281,7 @@
             <a class="menu-item" href="bandeja-operacion.html">
                 <span class="menu-icon">▣</span>
                 <span>Bandeja de<br>Operación</span>
-                <span class="notification">1</span>
+                <span class="notification" id="operationBadge">0</span>
             </a>
 
             <a class="menu-item" href="tarjetas-activas.html">
@@ -95,7 +344,7 @@
                 </div>
 
                 <button class="top-icon" id="notificationButton" title="Notificaciones">
-                🔔
+                    🔔
                 </button>
 
                 <button class="home-button" onclick="window.location.href='index.html'">
@@ -113,7 +362,7 @@
                 <div>
                     <div class="eyebrow">SEGURIDAD OPERATIVA / BLOQUEOS</div>
                     <h1>Mis solicitudes</h1>
-                    <p>Borradores, solicitudes enviadas y actividades asignadas a su cuenta</p>
+                    <p>Borradores y solicitudes registradas desde su cuenta</p>
                 </div>
 
                 <button class="new-request" onclick="window.location.href='nueva-solicitud.html'">
@@ -142,11 +391,10 @@
                     <table class="blocks-table requests-table">
 
                         <thead>
-
                             <tr>
                                 <th>ID</th>
                                 <th>EQUIPO / ACTIVIDAD</th>
-                                <th>EJECUTATE</th>
+                                <th>EJECUTANTE</th>
                                 <th>DEPARTAMENTO</th>
                                 <th>SUPERVISOR</th>
                                 <th>FECHA / HORA DE BLOQUEO</th>
@@ -155,7 +403,6 @@
                                 <th>TIEMPO BLOQUEADO</th>
                                 <th></th>
                             </tr>
-
                         </thead>
 
                         <tbody id="requestsTable"></tbody>
@@ -174,22 +421,22 @@
 
 <div class="overlay" id="overlay"></div>
 
-<div class="modal" id="detailModal">
+<aside class="request-drawer" id="detailModal">
 
-    <div class="modal-header">
+    <div class="drawer-header">
 
         <div>
-            <span>DETALLE DE SOLICITUD</span>
-            <h2 id="modalTitle">Solicitud</h2>
+            <span>REGISTRO COMPLETO DE AISLAMIENTO Y VALIDACIONES</span>
+            <h2 id="modalTitle">BLQ-2026-0000 — Borrador</h2>
         </div>
 
-        <button class="close-modal" id="closeModal">×</button>
+        <button class="drawer-close" id="closeModal">×</button>
 
     </div>
 
-    <div class="modal-body" id="modalBody"></div>
+    <div class="drawer-content" id="modalBody"></div>
 
-</div>
+</aside>
 
 <div class="notification-overlay" id="notificationOverlay"></div>
 
@@ -200,25 +447,15 @@
     </button>
 
     <div class="notification-header">
-
-        <h2>
-            Notificaciones
-        </h2>
-        <p>
-            Actualizaciones de solicitudes y cierres
-        </p>
-
+        <h2>Notificaciones</h2>
+        <p>Actualizaciones de solicitudes y cierres</p>
     </div>
 
     <div class="notification-list" id="notificationList">
-
         <div class="no-notifications">
             Sin notificaciones nuevas.
         </div>
-
     </div>
-
-    <div>
 
 </aside>
 

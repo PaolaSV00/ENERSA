@@ -1,7 +1,7 @@
-function obtenerSolicitudesBandeja() {
-    const datos = localStorage.getItem(
-        "enersa_solicitudes"
-    );
+const STORAGE_KEY = "enersa_solicitudes";
+
+function obtenerSolicitudes() {
+    const datos = localStorage.getItem(STORAGE_KEY);
 
     if (!datos) {
         return [];
@@ -10,33 +10,261 @@ function obtenerSolicitudesBandeja() {
     try {
         return JSON.parse(datos);
     } catch (error) {
-        console.error(error);
         return [];
     }
 }
 
-function guardarSolicitudesBandeja(solicitudes) {
+function guardarSolicitudes(solicitudes) {
     localStorage.setItem(
-        "enersa_solicitudes",
+        STORAGE_KEY,
         JSON.stringify(solicitudes)
     );
 }
 
-function obtenerSolicitudBandeja(id) {
-    const solicitudes =
-        obtenerSolicitudesBandeja();
-
-    return solicitudes.find(
-        solicitud => solicitud.id === id
+function obtenerPendientesAprobacion() {
+    return obtenerSolicitudes().filter(
+        solicitud =>
+            solicitud.status === "Pendiente de aprobación"
     );
 }
 
-function actualizarEstadoBandeja(
-    id,
-    nuevoEstado
-) {
-    const solicitudes =
-        obtenerSolicitudesBandeja();
+function obtenerPendientesCierre() {
+    return obtenerSolicitudes().filter(
+        solicitud =>
+            solicitud.status === "Pendiente de cierre"
+    );
+}
+
+function actualizarDatos() {
+    const aprobacion = obtenerPendientesAprobacion();
+    const cierre = obtenerPendientesCierre();
+
+    const contenedorAprobacion =
+        document.getElementById("approvalList");
+
+    const contenedorCierre =
+        document.getElementById("closingList");
+
+    const contadorAprobacion =
+        document.getElementById("approvalCount");
+
+    const contadorCierre =
+        document.getElementById("closingCount");
+
+    if (contadorAprobacion) {
+        contadorAprobacion.textContent =
+            aprobacion.length;
+    }
+
+    if (contadorCierre) {
+        contadorCierre.textContent =
+            cierre.length;
+    }
+
+    if (contenedorAprobacion) {
+        if (aprobacion.length === 0) {
+            contenedorAprobacion.innerHTML = `
+                <div style="padding:25px;text-align:center;">
+                    No hay solicitudes pendientes de aprobación.
+                </div>
+            `;
+        } else {
+            contenedorAprobacion.innerHTML =
+                aprobacion.map(solicitud => `
+                    <div
+                        class="operation-request"
+                        onclick="abrirSolicitudOperacion('${solicitud.id}')"
+                    >
+                        <strong>${solicitud.id}</strong>
+
+                        <span>
+                            ${solicitud.equipment || "-"}
+                            ·
+                            ${solicitud.activity || "-"}
+                        </span>
+
+                        <small>
+                            ${solicitud.applicant || solicitud.executor || "-"}
+                            ·
+                            ${solicitud.dateTime || "-"}
+                        </small>
+
+                        <b>›</b>
+                    </div>
+                `).join("");
+        }
+    }
+
+    if (contenedorCierre) {
+        if (cierre.length === 0) {
+            contenedorCierre.innerHTML = `
+                <div style="padding:25px;text-align:center;">
+                    No hay solicitudes pendientes de cierre.
+                </div>
+            `;
+        } else {
+            contenedorCierre.innerHTML =
+                cierre.map(solicitud => `
+                    <div
+                        class="operation-request"
+                        onclick="abrirSolicitudOperacion('${solicitud.id}')"
+                    >
+                        <strong>${solicitud.id}</strong>
+
+                        <span>
+                            ${solicitud.equipment || "-"}
+                            ·
+                            ${solicitud.activity || "-"}
+                        </span>
+
+                        <small>
+                            ${solicitud.applicant || solicitud.executor || "-"}
+                            ·
+                            ${solicitud.dateTime || "-"}
+                        </small>
+
+                        <b>›</b>
+                    </div>
+                `).join("");
+        }
+    }
+}
+
+function abrirSolicitudOperacion(id) {
+    const solicitud =
+        obtenerSolicitudes().find(
+            item => item.id === id
+        );
+
+    if (!solicitud) {
+        return;
+    }
+
+    window.solicitudOperacionSeleccionada = id;
+
+    const modal =
+        document.getElementById("operationModal");
+
+    const overlay =
+        document.getElementById("operationOverlay");
+
+    const body =
+        document.getElementById("operationModalBody");
+
+    const title =
+        document.getElementById("operationModalTitle");
+
+    if (title) {
+        title.textContent =
+            `${solicitud.id} — ${solicitud.status}`;
+    }
+
+    if (body) {
+        body.innerHTML = `
+            <div class="equipment-card">
+                <h3>${solicitud.equipment || "-"}</h3>
+                <p>${solicitud.activity || "-"}</p>
+            </div>
+
+            <div class="operation-detail-grid">
+
+                <div>
+                    <span>EJECUTANTE</span>
+                    <strong>${solicitud.executor || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>DEPARTAMENTO</span>
+                    <strong>${solicitud.department || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>SUPERVISOR</span>
+                    <strong>${solicitud.supervisor || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>SOLICITANTE</span>
+                    <strong>${solicitud.applicant || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>ÁREA</span>
+                    <strong>${solicitud.area || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>FECHA / HORA</span>
+                    <strong>${solicitud.dateTime || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>ESTADO</span>
+                    <strong>${solicitud.status}</strong>
+                </div>
+
+                <div>
+                    <span>DESCRIPCIÓN</span>
+                    <strong>${solicitud.description || "-"}</strong>
+                </div>
+
+            </div>
+
+            <div class="operation-actions">
+
+                ${
+                    solicitud.status === "Pendiente de aprobación"
+                    ? `
+                        <button
+                            type="button"
+                            onclick="aprobarSolicitud()"
+                        >
+                            Aprobar solicitud
+                        </button>
+                    `
+                    : ""
+                }
+
+            </div>
+        `;
+    }
+
+    if (overlay) {
+        overlay.style.display = "block";
+    }
+
+    if (modal) {
+        modal.classList.add("show");
+    }
+}
+
+function cerrarSolicitudOperacion() {
+    const modal =
+        document.getElementById("operationModal");
+
+    const overlay =
+        document.getElementById("operationOverlay");
+
+    if (modal) {
+        modal.classList.remove("show");
+    }
+
+    if (overlay) {
+        overlay.style.display = "none";
+    }
+
+    window.solicitudOperacionSeleccionada = null;
+}
+
+function aprobarSolicitud() {
+    const id =
+        window.solicitudOperacionSeleccionada;
+
+    if (!id) {
+        return;
+    }
+
+    const solicitudes = obtenerSolicitudes();
 
     const indice =
         solicitudes.findIndex(
@@ -44,352 +272,61 @@ function actualizarEstadoBandeja(
         );
 
     if (indice === -1) {
-        return false;
+        return;
     }
 
     solicitudes[indice].status =
-        nuevoEstado;
+        "Bloqueo activo";
 
     solicitudes[indice].updatedAt =
         new Date().toISOString();
 
-    guardarSolicitudesBandeja(
-        solicitudes
-    );
+    guardarSolicitudes(solicitudes);
 
-    return true;
-}
+    cerrarSolicitudOperacion();
 
-function obtenerPendientesAprobacion() {
-    return obtenerSolicitudesBandeja().filter(
-        solicitud =>
-            solicitud.status ===
-            "Pendiente de aprobación"
-    );
-}
-
-function obtenerPendientesCierre() {
-    return obtenerSolicitudesBandeja().filter(
-        solicitud =>
-            solicitud.status ===
-            "Pendiente de cierre"
-    );
-}
-
-function actualizarContadores() {
-    const pendientes =
-        obtenerPendientesAprobacion();
-
-    const cierres =
-        obtenerPendientesCierre();
-
-    const approvalTotal =
-        document.getElementById(
-            "approvalTotal"
-        );
-
-    const closeTotal =
-        document.getElementById(
-            "closeTotal"
-        );
-
-    if (approvalTotal) {
-        approvalTotal.textContent =
-            pendientes.length;
-    }
-
-    if (closeTotal) {
-        closeTotal.textContent =
-            cierres.length;
-    }
-}
-
-function mostrarSolicitudOperacion(
-    solicitud
-) {
-    const detail =
-        document.getElementById(
-            "approvalDetail"
-        );
-
-    if (!detail || !solicitud) {
-        return;
-    }
-
-    const equipo =
-        detail.querySelector(
-            ".detail-value"
-        );
-
-    if (equipo) {
-        equipo.textContent =
-            solicitud.equipment || "-";
-    }
-
-    const valores =
-        detail.querySelectorAll(
-            ".detail-value"
-        );
-
-    if (valores.length > 1) {
-        valores[1].textContent =
-            solicitud.activity || "-";
-    }
-
-    if (valores.length > 2) {
-        valores[2].textContent =
-            solicitud.executor || "-";
-    }
-
-    if (valores.length > 3) {
-        valores[3].textContent =
-            solicitud.department || "-";
-    }
-
-    if (valores.length > 4) {
-        valores[4].textContent =
-            solicitud.supervisor || "-";
-    }
-
-    window.solicitudOperacion =
-        solicitud.id;
-}
-
-function openApproval(button) {
-    const detail =
-        document.getElementById(
-            "approvalDetail"
-        );
-
-    if (!detail) {
-        return;
-    }
-
-    const solicitudes =
-        obtenerPendientesAprobacion();
-
-    if (solicitudes.length === 0) {
-        alert(
-            "No hay solicitudes pendientes de aprobación."
-        );
-        return;
-    }
-
-    const solicitud =
-        solicitudes[0];
-
-    mostrarSolicitudOperacion(
-        solicitud
-    );
-
-    detail.classList.toggle(
-        "show"
-    );
-
-    if (button) {
-        button.classList.toggle(
-            "rotated"
-        );
-    }
-}
-
-function closeApproval() {
-    const detail =
-        document.getElementById(
-            "approvalDetail"
-        );
-
-    if (detail) {
-        detail.classList.remove(
-            "show"
-        );
-    }
-
-    const button =
-        document.querySelector(
-            ".request-card .expand-request"
-        );
-
-    if (button) {
-        button.classList.remove(
-            "rotated"
-        );
-    }
-}
-
-function approveRequest() {
-    let id =
-        window.solicitudOperacion;
-
-    if (!id) {
-        const solicitudes =
-            obtenerPendientesAprobacion();
-
-        if (solicitudes.length > 0) {
-            id =
-                solicitudes[0].id;
-        }
-    }
-
-    if (!id) {
-        alert(
-            "No hay solicitudes pendientes de aprobación."
-        );
-        return;
-    }
-
-    const solicitud =
-        obtenerSolicitudBandeja(id);
-
-    if (!solicitud) {
-        alert(
-            "No se encontró la solicitud."
-        );
-        return;
-    }
-
-    actualizarEstadoBandeja(
-        id,
-        "Bloqueo activo"
-    );
-
-    closeApproval();
-    actualizarContadores();
+    actualizarDatos();
 
     alert(
-        "La solicitud " +
-        id +
-        " fue aprobada correctamente."
+        "La solicitud fue aprobada correctamente."
     );
-
-    location.reload();
 }
 
-function openCloseRequest(button) {
-    const detail =
-        document.getElementById(
-            "closeDetail"
-        );
+const closeOperationModal =
+    document.getElementById("closeOperationModal");
 
-    if (!detail) {
-        return;
-    }
-
-    const solicitudes =
-        obtenerPendientesCierre();
-
-    if (solicitudes.length === 0) {
-        alert(
-            "No hay solicitudes pendientes de cierre."
-        );
-        return;
-    }
-
-    window.solicitudCierre =
-        solicitudes[0].id;
-
-    detail.classList.toggle(
-        "show"
+if (closeOperationModal) {
+    closeOperationModal.addEventListener(
+        "click",
+        cerrarSolicitudOperacion
     );
-
-    if (button) {
-        button.classList.toggle(
-            "rotated"
-        );
-    }
 }
 
-function closeCloseRequest() {
-    const detail =
-        document.getElementById(
-            "closeDetail"
-        );
+const operationOverlay =
+    document.getElementById("operationOverlay");
 
-    if (detail) {
-        detail.classList.remove(
-            "show"
-        );
-    }
-}
-
-function finishClosure() {
-    const record =
-        document.getElementById(
-            "operationRecord"
-        );
-
-    if (!record) {
-        return;
-    }
-
-    const valor =
-        record.value.trim();
-
-    if (!valor) {
-        alert(
-            "Debe ingresar el registro de operación."
-        );
-        return;
-    }
-
-    let id =
-        window.solicitudCierre;
-
-    if (!id) {
-        const solicitudes =
-            obtenerPendientesCierre();
-
-        if (solicitudes.length > 0) {
-            id =
-                solicitudes[0].id;
-        }
-    }
-
-    if (!id) {
-        alert(
-            "No hay solicitudes pendientes de cierre."
-        );
-        return;
-    }
-
-    actualizarEstadoBandeja(
-        id,
-        "Terminado"
+if (operationOverlay) {
+    operationOverlay.addEventListener(
+        "click",
+        cerrarSolicitudOperacion
     );
-
-    closeCloseRequest();
-    actualizarContadores();
-
-    alert(
-        "El cierre de " +
-        id +
-        " fue registrado correctamente."
-    );
-
-    location.reload();
 }
 
 const mobileMenu =
-    document.getElementById(
-        "mobileMenu"
-    );
+    document.getElementById("mobileMenu");
 
 if (mobileMenu) {
     mobileMenu.addEventListener(
         "click",
         () => {
             const sidebar =
-                document.getElementById(
-                    "sidebar"
-                );
+                document.getElementById("sidebar");
 
             if (sidebar) {
-                sidebar.classList.toggle(
-                    "open"
-                );
+                sidebar.classList.toggle("open");
             }
         }
     );
 }
 
-actualizarContadores();
+actualizarDatos();

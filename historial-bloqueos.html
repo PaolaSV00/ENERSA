@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -94,8 +95,8 @@
                     REGISTRO EN LINEA
                 </div>
 
-            <button class="top-icon" id="notificationButton" title="Notificaciones">
-                🔔
+                <button class="top-icon" id="notificationButton" title="Notificaciones">
+                    🔔
                 </button>
 
                 <button class="home-button" onclick="window.location.href='index.html'">
@@ -119,6 +120,7 @@
                 <button class="new-request" onclick="window.location.href='nueva-solicitud.html'">
                     <span>+</span> Nueva solicitud
                 </button>
+
             </div>
 
             <section class="history-filters">
@@ -129,11 +131,13 @@
 
                     <div class="search-box">
                         <span>⌕</span>
+
                         <input
                             type="text"
                             id="historySearch"
                             placeholder="ID, equipo, serial, ejecutante, supervisor u operador"
                         >
+
                     </div>
 
                 </div>
@@ -143,33 +147,65 @@
                     <label for="statusFilter">ESTADO</label>
 
                     <select id="statusFilter">
-                        <option value="">Todos los estados </option>
-                        <option value="Borrador">Borrador</option>
-                        <option value="Pendiente de aprobación">Pendiente de aprobacion</option>
-                        <option value="Bloqueo activo">Bloqueo activo</option>
-                        <option value="Pendiente de cierre">Pendiente de cierre</option>
-                        <option value="Terminado">Terminado</option>
+
+                        <option value="">
+                            Todos los estados
+                        </option>
+
+                        <option value="Borrador">
+                            Borrador
+                        </option>
+
+                        <option value="Pendiente de aprobación">
+                            Pendiente de aprobación
+                        </option>
+
+                        <option value="Bloqueo activo">
+                            Bloqueo activo
+                        </option>
+
+                        <option value="Pendiente de cierre">
+                            Pendiente de cierre
+                        </option>
+
+                        <option value="Terminado">
+                            Terminado
+                        </option>
+
                     </select>
 
                 </div>
 
                 <div class="filter-group">
 
-                    <label for="dateFrom">FECHA DESDE</label>
+                    <label for="dateFrom">
+                        FECHA DESDE
+                    </label>
 
-                    <input type="date" id="dateFrom">
+                    <input
+                        type="date"
+                        id="dateFrom"
+                    >
 
                 </div>
 
                 <div class="filter-group">
 
-                    <label for="dateTo">FECHA HASTA</label>
+                    <label for="dateTo">
+                        FECHA HASTA
+                    </label>
 
-                    <input type="date" id="dateTo">
+                    <input
+                        type="date"
+                        id="dateTo"
+                    >
 
                 </div>
 
-                <button class="clear-filters" id="clearFilters">
+                <button
+                    class="clear-filters"
+                    id="clearFilters"
+                >
                     Limpiar filtros
                 </button>
 
@@ -180,12 +216,18 @@
                 <div class="panel-heading">
 
                     <div>
-                        <div class="section-label">REGISTRO </div>
-                        <h2>Historial de bloqueos</h2>
+                        <div class="section-label">
+                            REGISTRO
+                        </div>
+
+                        <h2>
+                            Historial de bloqueos
+                        </h2>
                     </div>
 
                     <div class="active-badge">
-                        <span id="historyCount">0</span> registros
+                        <span id="historyCount">0</span>
+                        registros
                     </div>
 
                 </div>
@@ -211,9 +253,7 @@
 
                         </thead>
 
-                        <tbody id="historyTable">
-
-                        </tbody>
+                        <tbody id="historyTable"></tbody>
 
                     </table>
 
@@ -238,21 +278,36 @@
             <h2 id="modalTitle">Bloqueo</h2>
         </div>
 
-        <button class="close-modal" id="closeModal">×</button>
+        <button
+            class="close-modal"
+            id="closeModal"
+        >
+            ×
+        </button>
 
     </div>
 
-    <div class="modal-body" id="modalBody"></div>
+    <div
+        class="modal-body"
+        id="modalBody"
+    ></div>
 
 </div>
-<div class="modal-body" id="modalBody"></div>
 
-</div>
-<div class="notification-overlay" id="notificationOverlay"></div>
+<div
+    class="notification-overlay"
+    id="notificationOverlay"
+></div>
 
-<aside class="notification-panel" id="notificationPanel">
+<aside
+    class="notification-panel"
+    id="notificationPanel"
+>
 
-    <button class="notification-close" id="notificationClose">
+    <button
+        class="notification-close"
+        id="notificationClose"
+    >
         ×
     </button>
 
@@ -268,7 +323,10 @@
 
     </div>
 
-    <div class="notification-list" id="notificationList">
+    <div
+        class="notification-list"
+        id="notificationList"
+    >
 
         <div class="no-notifications">
             Sin notificaciones nuevas.
@@ -283,3 +341,4 @@
 
 </body>
 </html>
+```
