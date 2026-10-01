@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ENERSA - Control de Planta</title>
+
+    <link rel="stylesheet" href="inicio.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-wrapper">
+
+            <div class="brand-section">
+
+                <div class="brand-logo">
+                    <span>ENERSA</span>
+                </div>
+
+                <div class="brand-line"></div>
+
+                <h1>
+                    CONTROL DE PLANTA
+                </h1>
+
+                <p>
+                    Sistema de gestión y control de bloqueos
+                </p>
+
+            </div>
+
+
+            <div
+                class="login-card"
+                id="loginCard"
+            >
+
+                <div class="card-header">
+
+                    <span class="eyebrow">
+                        ACCESO AL SISTEMA
+                    </span>
+
+                    <h2>
+                        Iniciar sesión
+                    </h2>
+
+                    <p>
+                        Ingrese sus credenciales para continuar.
+                    </p>
+
+                </div>
+
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Correo electrónico
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                name="correo"
+                                placeholder="correo@empresa.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="loginPassword">
+                            Contraseña
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                name="password"
+                                placeholder="Ingrese su contraseña"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        <span>
+                            Iniciar sesión
+                        </span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+                    </button>
+
+                </form>
+
+
+                <div class="register-divider">
+                    <span>¿Primera vez en el sistema?</span>
+                </div>
+
+
+                <button
+                    type="button"
+                    id="showRegister"
+                    class="secondary-button"
+                >
+                    Crear una cuenta
+                </button>
+
+            </div>
+
+
+            <div
+                class="login-card register-card"
+                id="registerCard"
+                style="display:none;"
+            >
+
+                <div class="card-header">
+
+                    <span class="eyebrow">
+                        NUEVO USUARIO
+                    </span>
+
+                    <h2>
+                        Crear cuenta
+                    </h2>
+
+                    <p>
+                        Registre sus datos para solicitar acceso al sistema.
+                    </p>
+
+                </div>
+
+
+                <div class="notice">
+
+                    <span class="notice-icon">
+                        i
+                    </span>
+
+                    <p>
+                        Después de registrarse, un administrador
+                        deberá aprobar su cuenta y asignarle un rol.
+                    </p>
+
+                </div>
+
+
+                <form id="registerForm">
+
+                    <div class="form-group">
+
+                        <label for="registerEmail">
+                            Correo electrónico
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="registerEmail"
+                                name="correo"
+                                placeholder="correo@empresa.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registerUsername">
+                            Nombre de usuario
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                U
+                            </span>
+
+                            <input
+                                type="text"
+                                id="registerUsername"
+                                name="usuario"
+                                placeholder="Nombre de usuario"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registerPassword">
+                            Contraseña
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                name="password"
+                                placeholder="Ingrese una contraseña"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registerPasswordConfirm">
+                            Confirmar contraseña
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="registerPasswordConfirm"
+                                name="password_confirm"
+                                placeholder="Repita la contraseña"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        <span>
+                            Solicitar registro
+                        </span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+                    </button>
+
+                </form>
+
+
+                <div class="register-divider">
+                    <span>¿Ya tiene una cuenta?</span>
+                </div>
+
+
+                <button
+                    type="button"
+                    id="showLogin"
+                    class="secondary-button"
+                >
+                    Volver a iniciar sesión
+                </button>
+
+            </div>
+
+
+            <footer class="login-footer">
+
+                <span>
+                    ENERSA
+                </span>
+
+                <span class="footer-dot">
+                    •
+                </span>
+
+                <span>
+                    Control de Planta
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+
+    <script src="inicio.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #1769aa;
+    --blue-dark: #0d4775;
+    --blue-light: #eaf4fb;
+    --text: #243746;
+    --muted: #71808d;
+    --border: #dce4e9;
+    --background: #f4f7f9;
+    --white: #ffffff;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(23, 105, 170, 0.08),
+            transparent 35%
+        ),
+        var(--background);
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 460px;
+}
+
+.brand-section {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 110px;
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 8px;
+    background: var(--blue);
+    color: white;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    box-shadow: 0 6px 18px rgba(23, 105, 170, 0.18);
+}
+
+.brand-line {
+    width: 42px;
+    height: 3px;
+    background: var(--blue);
+    margin: 17px auto 12px;
+    border-radius: 10px;
+}
+
+.brand-section h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--blue-dark);
+}
+
+.brand-section p {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.login-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 34px;
+    box-shadow:
+        0 14px 35px rgba(36, 55, 70, 0.08);
+}
+
+.card-header {
+    margin-bottom: 26px;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 1.2px;
+    margin-bottom: 8px;
+}
+
+.card-header h2 {
+    font-size: 27px;
+    color: var(--text);
+    font-weight: 700;
+}
+
+.card-header p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 7px;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin-bottom: 19px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #40515e;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 5px;
+    background: var(--blue-light);
+}
+
+.input-wrapper input {
+    width: 100%;
+    height: 47px;
+    padding: 0 14px 0 48px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    background: #fbfcfd;
+    color: var(--text);
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.input-wrapper input::placeholder {
+    color: #a4afb7;
+}
+
+.input-wrapper input:focus {
+    border-color: var(--blue);
+    background: white;
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 170, 0.09);
+}
+
+.primary-button {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 5px;
+    padding: 0 17px;
+    border: none;
+    border-radius: 8px;
+    background: var(--blue);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.2s ease;
+}
+
+.primary-button:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+}
+
+.button-arrow {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.secondary-button {
+    width: 100%;
+    min-height: 45px;
+    border: 1px solid #cbd8e1;
+    border-radius: 8px;
+    background: white;
+    color: var(--blue-dark);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.secondary-button:hover {
+    border-color: var(--blue);
+    background: var(--blue-light);
+}
+
+.register-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0 15px;
+    color: #89959e;
+    font-size: 12px;
+}
+
+.register-divider::before,
+.register-divider::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: var(--border);
+}
+
+.notice {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    background: var(--blue-light);
+    border: 1px solid #d5e8f5;
+    border-radius: 8px;
+    padding: 13px;
+    margin-bottom: 23px;
+}
+
+.notice-icon {
+    width: 21px;
+    height: 21px;
+    min-width: 21px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.notice p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #4c6475;
+}
+
+.login-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    color: #8a969f;
+    font-size: 11px;
+}
+
+.login-footer span:first-child {
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 0.8px;
+}
+
+.footer-dot {
+    color: #b6c0c7;
+}
+
+@media (max-width: 520px) {
+
+    .login-page {
+        padding: 25px 15px;
+    }
+
+    .login-card {
+        padding: 27px 22px;
+    }
+
+    .brand-section h1 {
+        font-size: 19px;
+    }
+
+    .card-header h2 {
+        font-size: 24px;
+    }
+
+}
+
