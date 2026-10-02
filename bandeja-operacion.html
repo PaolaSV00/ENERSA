@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandeja de Operacion</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🔒</div>
+
+            <div>
+                <h2>ENERSA</h2>
+                <span>CONTROL DE PLANTA</span>
+            </div>
+        </div>
+
+        <div class="menu-title">
+            GESTIÓN DE BLOQUEOS
+
+        </div>
+
+        <nav class="menu">
+
+
+            <a class="menu-item" href="index.html">
+                <span class="menu-icon">▦</span>
+                <span>Panel general</span>
+            </a>
+
+            <a class="menu-item active" href="bandeja-operacion.html">
+                <span class="menu-icon">▣</span>
+                <span>Bandeja de<br>Operación</span>
+                <span class="notification">1</span>
+            </a>
+
+            <a class="menu-item" href="tarjetas-activas.html">
+                <span class="menu-icon">◇</span>
+                <span>Tarjetas activas</span>
+            </a>
+
+            <a class="menu-item" href="historial-bloqueos.html">
+                <span class="menu-icon">◷</span>
+                <span>Historial de bloqueos</span>
+            </a>
+
+            <a class="menu-item" href="solicitudes.html">
+                <span class="menu-icon">⌁</span>
+                <span>Mis solicitudes</span>
+            </a>
+
+            <a class="menu-item" href="administracion.html">
+                <span class="menu-icon">♙</span>
+                <span>Administración</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <div class="footer-icon">♧</div>
+
+            <div>
+                <strong>Registro y trazabilidad </strong>
+                <span>de cada intervención</span>
+            </div>
+
+        </div>
+
+        <div class="user-box">
+
+            <div class="avatar">I</div>
+
+            <div>
+                <strong>Ingrid Serrano</strong>
+                <span>Administrador</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenu">
+                ☰
+            </button>
+
+            <div class="breadcrumb">
+                <span>PLANTA</span>
+                <b>›</b>
+                <strong>Bandeja de Operación</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="online">
+                    <span></span>
+                    REGISTRO EN LÍNEA
+                </div>
+
+                <button class="top-icon" id="notificationButton" title="Notificaciones">
+                🔔
+                </button>
+
+                <button class="home-button" onclick="window.location.href='index.html'">
+                    ⌂ <span>Inicio</span>
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <div class="eyebrow">
+                        SEGURIDAD OPERATIVA / OPERACIÓN
+                    </div>
+
+                    <h1>
+                        Bandeja de Operación
+                    </h1>
+
+                    <p>
+                        Gestión de solicitudes pendientes de aprobación y cierre
+                    </p>
+
+                </div>
+            <button class="new-request" onclick="window.location.href='nueva-solicitud.html'">
+                        <span>+</span> Nueva solicitud
+                </button>
+            </div>
+
+
+            <section class="operation-stats">
+
+                <div class="operation-stat-card">
+
+                    <div class="operation-stat-icon blue">
+                        ▣
+                    </div>
+
+                    <div>
+                        <span>
+                            PENDIENTES DE APROBACIÓN
+                        </span>
+
+                        <strong id="approvalTotal">
+                            1
+                        </strong>
+
+                        <p>
+                            Solicitudes por Validar
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="operation-stat-card">
+
+                    <div class="operation-stat-icon purple">
+                        ◷
+                    </div>
+
+                    <div>
+                        <span>
+                            PENDIENTES DE CIERRE
+                        </span>
+
+                        <strong id="closeTotal">
+                            1
+                        </strong>
+
+                        <p>
+                            Bloqueos esperando cierre
+                        </p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="tray-section">
+
+                <div class="tray-section-header">
+
+                    <div>
+
+                        <div class="section-label">
+                            REQUIEREN APROBACIÓN
+                        </div>
+
+                        <h2>
+                            Pendientes de aprobación
+                        </h2>
+
+                    </div>
+
+                    <span class="tray-count">
+                        1 pendiente
+                    </span>
+
+                </div>
+
+
+                <div class="request-card">
+
+                    <div class="request-main">
+
+                        <div class="request-id">
+                            BLQ-2026-0009
+                        </div>
+
+                        <h3>
+                            Motor P002
+                        </h3>
+
+                        <p>
+                            Mantenimiento preventivo del equipo
+                        </p>
+
+                    </div>
+
+
+                    <div class="request-info">
+
+                        <div>
+                            <span>SOLICITANTE</span>
+                            <strong>Allan Medina</strong>
+                        </div>
+
+                        <div>
+                            <span>DEPARTAMENTO</span>
+                            <strong>Eléctrico</strong>
+                        </div>
+
+                        <div>
+                            <span>SUPERVISOR</span>
+                            <strong>Cristobal Silva</strong>
+                        </div>
+
+                        <div>
+                            <span>FECHA / HORA</span>
+                            <strong>27/09/26, 10:25</strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="expand-request"
+                        type="button"
+                        onclick="openApproval(this)">
+                        ›
+                    </button>
+
+                </div>
+
+
+                <div class="request-detail" id="approvalDetail">
+
+                    <div class="detail-title">
+                        <div>
+                            <span>RESUMEN DE SOLICITUD</span>
+                            <h3>
+                                BLQ-2026-0009
+                            </h3>
+                        </div>
+                    </div>
+
+
+                    <div class="detail-grid">
+
+                        <div class="detail-box">
+                            <span>EQUIPO</span>
+                            <strong>Motor P002</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>ACTIVIDAD</span>
+                            <strong>Mantenimiento preventivo</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>EJECUTANTE</span>
+                            <strong>Allan Medina</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>DEPARTAMENTO</span>
+                            <strong>Eléctrico</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>SUPERVISOR</span>
+                            <strong>Cristobal Silva</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>FECHA PROGRAMMADA</span>
+                            <strong>27/09/26</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="cards-area">
+
+                        <div class="detail-title-small">
+                            TARJETAS DE PUNTO DE AISLAMIENTO
+                        </div>
+
+                        <div class="isolation-cards">
+
+                            <div class="isolation-card">
+                                <strong>TA-001</strong>
+                                <span>Interruptor principal</span>
+                            </div>
+
+                            <div class="isolation-card">
+                                <strong>TA-002</strong>
+                                <span>Alimentación eléctrica</span>
+                            </div>
+
+                            <div class="isolation-card">
+                                <strong>TA-003</strong>
+                                <span>Motor P002</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="approval-actions">
+
+                        <button
+                            class="secondary-action"
+                            type="button"
+                            onclick="closeApproval()">
+                            Cerrar
+                        </button>
+
+                        <button
+                            class="primary-action"
+                            type="button"
+                            onclick="approveRequest()">
+                            Aprovar bloqueo
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="tray-section">
+
+                <div class="tray-section-header">
+
+                    <div>
+
+                        <div class="section-label">
+                            REQUIEREN CIERRE
+                        </div>
+
+                        <h2>
+                            Pendientes de cierre
+                        </h2>
+
+                    </div>
+
+                    <span class="tray-count purple-count">
+                        1 pendiente
+                    </span>
+
+                </div>
+
+
+                <div class="request-card">
+
+                    <div class="request-main">
+
+                        <div class="request-id">
+                            BLQ-2026-0007
+                        </div>
+
+                        <h3>
+                            Panel ESSER
+                        </h3>
+
+                        <p>
+                            Prueba realizada del SCI
+                        </p>
+
+                    </div>
+
+
+                    <div class="request-info">
+
+                        <div>
+                            <span>EJECUTANTE</span>
+                            <strong>Técnico eléctrico</strong>
+                        </div>
+
+                        <div>
+                            <span>DEPARTAMENTO</span>
+                            <strong>Ambiente</strong>
+                        </div>
+
+                        <div>
+                            <span>SUPERVISOR</span>
+                            <strong>Noel Méndez</strong>
+                        </div>
+
+                        <div>
+                            <span>FECHA / HORA</span>
+                            <strong>25/09/26, 08:39</strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="expand-request"
+                        type="button"
+                        onclick="openCloseRequest(this)">
+                        ›
+                    </button>
+
+                </div>
+
+
+                <div class="request-detail" id="closeDetail">
+
+                    <div class="detail-title">
+
+                        <div>
+
+                            <span>RESUMEN DE CIERRE</span>
+
+                            <h3>
+                                BLQ-2026-0007
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-grid">
+
+                        <div class="detail-box">
+                            <span>EQUIPO</span>
+                            <strong>Panel ESSER</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>ACTIVIDAD</span>
+                            <strong>Prueba realizada del SCI</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>EJECUTANTE</span>
+                            <strong>Técnico eléctrico</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>SUPERVISOR</span>
+                            <strong>Noel Méndez</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>TARJETAS</span>
+                            <strong>1 tarjeta</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>ESTADO</span>
+                            <strong>Pendiente de cierre</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="timeline">
+
+                        <div class="timeline-title">
+                            LÍNEA DE TIEMPO DE AUDITORÍA
+                        </div>
+
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-dot">
+                                ✓
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Borrador creado
+                                </strong>
+
+                                <span>
+                                    Solicitud registrada en el sistema
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-dot">
+                                ✓
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Solicitud enviada
+                                </strong>
+
+                                <span>
+                                    Solicitud enviada para aprobación
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-dot">
+                                ✓
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Bloqueo aprobado
+                                </strong>
+
+                                <span>
+                                    Operación aprobó el bloqueo
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="timeline-item current">
+
+                            <div class="timeline-dot">
+                                4
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Cierre de solicitud
+                                </strong>
+
+                                <span>
+                                    Pendiente de validación final
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="operation-form">
+
+                        <div class="detail-title-small">
+                            VALIDACIÓN FINAL DE OPERACIÓN
+                        </div>
+
+                        <label>
+                            Campo de registro
+                        </label>
+
+                        <input
+                            type="text"
+                            id="operationRecord"
+                            placeholder="Ingrese el registro de operación">
+
+                        <label>
+                            Observaciones
+                        </label>
+
+                        <textarea
+                            id="operationObservation"
+                            rows="3"
+                            placeholder="Ingrese observaciones de la operación"></textarea>
+
+                    </div>
+
+
+                    <div class="approval-actions">
+
+                        <button
+                            class="secondary-action"
+                            type="button"
+                            onclick="closeCloseRequest()">
+                            Cancelar
+                        </button>
+
+                        <button
+                            class="primary-action"
+                            type="button"
+                            onclick="finishClosure()">
+                            Terminar cierre de bloqueo
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div class="modal-body" id="modalBody"></div>
+
+</div>
+<div class="notification-overlay" id="notificationOverlay"></div>
+
+<aside class="notification-panel" id="notificationPanel">
+
+    <button class="notification-close" id="notificationClose">
+        ×
+    </button>
+
+    <div class="notification-header">
+
+        <h2>
+            Notificaciones
+        </h2>
+
+        <p>
+            Actualizaciones de solicitudes y cierres
+        </p>
+
+    </div>
+
+    <div class="notification-list" id="notificationList">
+
+        <div class="no-notifications">
+            Sin notificaciones nuevas.
+        </div>
+
+    </div>
+
+</aside>
+
+<script src="bandeja-script.js"></script>
+<script src="notificaciones.js"></script>
+
+
+
+</body>
+</html>

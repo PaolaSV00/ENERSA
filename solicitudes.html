@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis solicitudes - Control de Planta</title>
+    <link rel="stylesheet" href="estilo.css">
+    <style>
+        .request-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(680px, 92vw);
+            height: 100vh;
+            background: #f7fafc;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform .3s ease;
+            overflow-y: auto;
+            box-shadow: -8px 0 30px rgba(0,0,0,.18);
+        }
+
+        .request-drawer.show {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            padding: 25px 28px 20px;
+            background: #f7fafc;
+            border-bottom: 1px solid #dce4e9;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .drawer-header span {
+            display: block;
+            font-size: 13px;
+            color: #71818c;
+            margin-bottom: 7px;
+        }
+
+        .drawer-header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #163d52;
+        }
+
+        .drawer-close {
+            border: 0;
+            background: transparent;
+            font-size: 28px;
+            color: #71818c;
+            cursor: pointer;
+        }
+
+        .drawer-content {
+            padding: 20px 28px 35px;
+        }
+
+        .equipment-card {
+            background: #173f53;
+            color: white;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .equipment-card h3 {
+            margin: 0 0 8px;
+            font-size: 22px;
+        }
+
+        .equipment-card p {
+            margin: 0;
+            opacity: .9;
+        }
+
+        .request-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #dce4e9;
+        }
+
+        .info-item span {
+            display: block;
+            color: #82919a;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #254456;
+            font-size: 14px;
+        }
+
+        .cards-section {
+            margin-top: 22px;
+            border: 1px solid #ecd9b5;
+            background: #fffaf1;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .cards-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #385465;
+        }
+
+        .cards-header strong {
+            font-size: 16px;
+        }
+
+        .cards-count {
+            background: #fff0d2;
+            color: #ad7110;
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .card-row {
+            background: white;
+            border: 1px solid #e7d9c1;
+            border-radius: 6px;
+            padding: 13px;
+            display: grid;
+            grid-template-columns: 110px 1fr auto;
+            gap: 15px;
+            margin-top: 8px;
+            align-items: center;
+        }
+
+        .card-row strong {
+            color: #254456;
+        }
+
+        .card-status {
+            color: #a06b13;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .timeline-section {
+            margin-top: 24px;
+        }
+
+        .timeline-title {
+            color: #315365;
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 28px;
+            border-left: 2px solid #d8e0e4;
+            padding-bottom: 18px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #e1a22d;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px #e1a22d;
+        }
+
+        .timeline-item strong {
+            display: block;
+            color: #294b5d;
+            margin-bottom: 6px;
+        }
+
+        .timeline-item small {
+            display: block;
+            color: #81909a;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item span {
+            color: #617581;
+            font-size: 13px;
+        }
+
+        .drawer-actions {
+            margin-top: 10px;
+            padding: 20px;
+            border: 1px solid #d8e4e9;
+            border-radius: 8px;
+            background: #f5fafc;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .drawer-edit {
+            border: 1px solid #c9d7de;
+            background: #edf3f6;
+            color: #29495a;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .drawer-send {
+            border: 0;
+            background: #173f53;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .drawer-send:hover {
+            background: #24556d;
+        }
+
+        .empty-cards {
+            color: #788993;
+            font-size: 13px;
+            padding: 10px 0;
+        }
+
+        @media (max-width: 650px) {
+            .request-info-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .drawer-content {
+                padding: 18px;
+            }
+
+            .drawer-header {
+                padding: 20px 18px;
+            }
+
+            .card-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🔒</div>
+            <div>
+                <h2>ENERSA</h2>
+                <span>CONTROL DE PLANTA</span>
+            </div>
+        </div>
+
+        <div class="menu-title">GESTIÓN DE BLOQUEOS</div>
+
+        <nav class="menu">
+
+            <a class="menu-item" href="index.html">
+                <span class="menu-icon">▦</span>
+                <span>Panel general</span>
+            </a>
+
+            <a class="menu-item" href="bandeja-operacion.html">
+                <span class="menu-icon">▣</span>
+                <span>Bandeja de<br>Operación</span>
+                <span class="notification" id="operationBadge">0</span>
+            </a>
+
+            <a class="menu-item" href="tarjetas-activas.html">
+                <span class="menu-icon">◇</span>
+                <span>Tarjetas activas</span>
+            </a>
+
+            <a class="menu-item" href="historial-bloqueos.html">
+                <span class="menu-icon">◷</span>
+                <span>Historial de bloqueos</span>
+            </a>
+
+            <a class="menu-item active" href="solicitudes.html">
+                <span class="menu-icon">⌁</span>
+                <span>Mis solicitudes</span>
+            </a>
+
+            <a class="menu-item" href="administracion.html">
+                <span class="menu-icon">♙</span>
+                <span>Administración</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">♧</div>
+            <div>
+                <strong>Registro y trazabilidad</strong>
+                <span>de cada intervención</span>
+            </div>
+        </div>
+
+        <div class="user-box">
+            <div class="avatar">I</div>
+            <div>
+                <strong>Ingrid Serrano</strong>
+                <span>Administrador</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div class="breadcrumb">
+                <span>PLANTA</span>
+                <b>›</b>
+                <strong>Mis solicitudes</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="online">
+                    <span></span>
+                    REGISTRO EN LÍNEA
+                </div>
+
+                <button class="top-icon" id="notificationButton" title="Notificaciones">
+                    🔔
+                </button>
+
+                <button class="home-button" onclick="window.location.href='index.html'">
+                    ⌂ <span>Inicio</span>
+                </button>
+
+            </div>
+
+        </header>
+
+        <section class="content">
+
+            <div class="page-header">
+
+                <div>
+                    <div class="eyebrow">SEGURIDAD OPERATIVA / BLOQUEOS</div>
+                    <h1>Mis solicitudes</h1>
+                    <p>Borradores y solicitudes registradas desde su cuenta</p>
+                </div>
+
+                <button class="new-request" onclick="window.location.href='nueva-solicitud.html'">
+                    <span>+</span> Nueva solicitud
+                </button>
+
+            </div>
+
+            <section class="panel-card">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <div class="section-label">MIS ACTIVIDADES</div>
+                        <h2>Solicitudes registradas</h2>
+                    </div>
+
+                    <div class="active-badge">
+                        <span id="requestCount">0</span> solicitudes
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table class="blocks-table requests-table">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>EQUIPO / ACTIVIDAD</th>
+                                <th>EJECUTANTE</th>
+                                <th>DEPARTAMENTO</th>
+                                <th>SUPERVISOR</th>
+                                <th>FECHA / HORA DE BLOQUEO</th>
+                                <th>TARJETAS</th>
+                                <th>ESTADO</th>
+                                <th>TIEMPO BLOQUEADO</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="requestsTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="request-drawer" id="detailModal">
+
+    <div class="drawer-header">
+
+        <div>
+            <span>REGISTRO COMPLETO DE AISLAMIENTO Y VALIDACIONES</span>
+            <h2 id="modalTitle">BLQ-2026-0000 — Borrador</h2>
+        </div>
+
+        <button class="drawer-close" id="closeModal">×</button>
+
+    </div>
+
+    <div class="drawer-content" id="modalBody"></div>
+
+</aside>
+
+<div class="notification-overlay" id="notificationOverlay"></div>
+
+<aside class="notification-panel" id="notificationPanel">
+
+    <button class="notification-close" id="notificationClose">
+        ×
+    </button>
+
+    <div class="notification-header">
+        <h2>Notificaciones</h2>
+        <p>Actualizaciones de solicitudes y cierres</p>
+    </div>
+
+    <div class="notification-list" id="notificationList">
+        <div class="no-notifications">
+            Sin notificaciones nuevas.
+        </div>
+    </div>
+
+</aside>
+
+<script src="soli-scrip.js"></script>
+<script src="notificaciones.js"></script>
+
+</body>
+</html>
