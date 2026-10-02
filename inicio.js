@@ -94,7 +94,7 @@ registerForm.addEventListener(
 
             const respuesta =
                 await fetch(
-                    "php/registrar_usuario.php",
+                    "http://localhost:3000/api/registro",
                     {
                         method: "POST",
 
@@ -184,7 +184,7 @@ loginForm.addEventListener(
 
             const respuesta =
                 await fetch(
-                    "php/iniciar_sesion.php",
+                    "http://localhost:3000/api/login",
                     {
                         method: "POST",
 
@@ -227,6 +227,11 @@ loginForm.addEventListener(
                 JSON.stringify(
                     resultado.usuario
                 )
+            );
+
+            sessionStorage.setItem(
+                "token",
+                resultado.token
             );
 
 
