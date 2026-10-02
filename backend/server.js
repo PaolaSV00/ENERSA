@@ -205,7 +205,7 @@ app.get("/api/notificaciones", verificarToken, async (req, res) => {
   try {
     const [filas] = await db.query(
       `SELECT n.id, n.mensaje, n.leida, n.fecha, u.nombre AS origen
-       FROM notificaciones n
+      FROM notificaciones n
        JOIN usuarios u ON n.usuario_origen_id = u.id
        WHERE n.usuario_destino_id = ?
        ORDER BY n.fecha DESC

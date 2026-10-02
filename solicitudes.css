@@ -11,7 +11,7 @@
 }
 
 .request-detail {
-    position: fixed;
+    position: fixed; 
     top: 0;
     right: 0;
     width: min(720px, 92vw);

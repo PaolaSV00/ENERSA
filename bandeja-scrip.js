@@ -24,7 +24,7 @@ function guardarSolicitudes(solicitudes) {
 function obtenerPendientesAprobacion() {
     return obtenerSolicitudes().filter(
         solicitud =>
-            solicitud.status === "Pendiente de aprobación"
+            solicitud.status === "Pendiente de aprobacion"
     );
 }
 
